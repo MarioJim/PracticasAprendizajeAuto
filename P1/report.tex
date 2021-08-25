@@ -1,0 +1,374 @@
+\documentclass[sigconf,authorversion,nonacm]{acmart}
+
+\usepackage{listings}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+\begin{document}
+
+\title{Práctica 1 \\ Regresión lineal}
+
+\author{Mario Emilio Jiménez Vizcaíno}
+\email{A01173359@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+\author{Jesus Abraham Haros Madrid}
+\email{A01252642@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+
+\begin{abstract}
+  Esta práctica tiene el propósito de demostrar dos metodologías para la creación modelos de regresión lineal, cuyo objetivo es crear una función a partir de una combinación lineal de sus parámetros para aproximar el resultado real. Estos métodos son la regresión lineal por mínimos cuadrados y el gradiente descendente, ambos implementados dentro de la librería scikit-learn, usada durante la práctica.
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+El aprendizaje automático es la rama de los algoritmos computacionales cuyo objetivo es emular la inteligencia humana a través de "aprender" del entorno. Las técnicas basadas en el aprendizaje automático se han aplicado con éxito en diversos campos como el reconocimiento de patrones, la visión computacional, diferentes ramas de la ingeniería, las finanzas y la biología.\cite{el2015machine}
+
+Uno de los modelos más comunes del aprendizaje automático es la regresión, un tipo de análisis predictivo básico y comúnmente utilizado. Se diferencia de los modelos de clasificación porque estima un valor numérico, mientras que los modelos de clasificación identifican a qué categoría pertenece una observación.
+
+Las estimaciones de regresión se utilizan para explicar la relación entre una variable dependiente y una o más variables independientes. La forma más sencilla de de este modelo es la ecuación de regresión con una variable dependiente y otra independiente, definida por la fórmula $y = c + b * x$ donde $y$ representa el valor estimado de la variable dependiente, $c$ es una constante, $b$ es el coeficiente de regresión y $x$ es el valor de la variable independiente.
+
+
+\section{Conceptos previos}
+\begin{itemize}
+  \item Programación básica en los lenguajes R y Python
+  \item Conocimiento de las librerías scikit-learn, pandas y numpy
+  \item Conocimientos de estadística y de regresión lineal
+\end{itemize}
+
+
+\section{Metodología}
+Para la demostración de los modelos de regresión se utilizaron las implementaciones de estos algoritmos de scikit-learn, específicamente las clases \textit{LinearRegression } y \textit{SGDRegressor}, probadas en dos datasets diferentes: genero.txt y mtcars.txt.
+
+\subsection{Dataset GENERO}
+Este dataset está compuesto por 10,000 filas de información, que representan la información del género, el peso y la estatura de una persona. El género está representado por una cadena de caracteres "\textit{Male}" o "\textit{Female}", el peso por un número decimal de libras, y la estatura por un número decimal de pulgadas.
+
+\subsubsection{Análisis exploratorio}\hfill\\
+Inicialmente se utilizó R para hacer un análisis estadístico de este dataset, específicamente las columnas \textit{Weight} y \textit{Height}, usadas como variable independiente y dependiente respectivamente.
+La función \textit{summary} de R arrojó el siguiente resultado:
+\begin{center}
+\begin{tabular}{ |c|c|c| }
+  \hline
+  Gender & Height & Weight \\
+  \hline
+  Length: 10000 & Min: 54.26 & Min: 64.7 \\
+  Class: character & 1st Qu: 63.51 & 1st Qu: 135.8 \\
+  Mode: character & Median: 66.32 & Median: 161.2 \\
+   & Mean: 66.37 & Mean: 161.4 \\
+   & 3rd Qu: 69.17 & 3rd Qu: 187.2 \\
+   & Max: 79.00 & Max: 270.0 \\
+  \hline
+\end{tabular}
+\end{center}
+
+También las funciones \textit{boxplot} y \textit{plot} fueron utilizadas para crear dos gráficas que nos dan una idea general sobre cómo se comportan nuestros datos.
+La figura 1 representa dos boxplots de las variables de GENERO que usaremos.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{generoBoxplot.png}
+  \caption{Boxplot del dataset GENERO}
+\end{figure}
+
+Por otro lado, la figura 2 representa los diversos puntos de información graficados en un plano con el peso en el eje horizontal y la altura en el eje vertical.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{generoDispersion.png}
+  \caption{Gráfico de dispersión del dataset GENERO}
+\end{figure}
+
+El código fuente de este análisis puede ser encontrado en el apéndice C.
+
+\subsubsection{Regresión lineal}\hfill\\
+Como se mencionó anteriormente, se utilizó la implementación del algorimo de regresión lineal de \textit{scikit-learn}, encontrado en la clase \textit{sklearn.linear\_model.LinearRegression}.
+El código para este ejemplo es simple:
+\begin{enumerate}
+  \item Usando la librería \textit{pandas} se carga el archivo \textit{genero.txt} a un \textit{Dataframe} usando la función \textit{read\_csv}
+  \item Se extraen las columnas de altura y peso del \textit{Dataframe}
+  \item De la librería \textit{sklearn}, se utiliza la función \textit{train\_test\_split} para dividir tanto la columna de altura y de peso en dos partes cada una: la parte que se usará para entrenar al modelo, con el 80\% de los datos, y la parte que se usará para probar el modelo, con el restante 20\%
+  \item Se instancia la clase \textit{LinearRegression} y se utiliza el método \textit{fit} para asignarle la columna de datos independiente (en este caso la altura) y la columna de datos dependiente (el peso)
+  \item Se llama al método \textit{predict} de la instancia del modelo de regresión con los datos de prueba de la variable independiente, lo que nos devuelve una columna de datos predecidos
+  \item Finalmente, se comparan estos datos predecidos con los datos reales (los datos de prueba de la variable dependiente) para sacar un error cuadrático medio, que suele rondar entre 140 y 155
+\end{enumerate}
+
+En este caso se decidió normalizar la variable independiente (Height) para que fuera fácilmente comparable con la implementación de gradiente descendente. El código usado en para demostrar la regresión lineal puedes ser encontrado en el apéndice D.
+
+\subsubsection{Gradiente descendente}\hfill\\
+Para la demostración de este algorimo se optó por una implementación propia, que exponga las mismas funciones básicas que la clase de \textit{sklearn} pero con un mecanismo interno diferente. La clase de \textit{GradientDescent} se compone por 3 funciones principales:
+\begin{itemize}
+  \item El constructor, que inicializa variables como la velocidad de aprendizaje, el número máximo de iteraciones y la precisión final.
+  \item La función \textit{fit}, que recibe dos \textit{Dataframe}s, uno de las variables independientes y otro de la dependiente. Este método ejecuta las siguientes instrucciones:
+  \begin{enumerate}
+    \item Primero normaliza cada variable independiente, esto con el fin de que el algoritmo tenga un mejor funcionamiento. Normalizar las variables se trata de encontrar el promedio (\textit{mu}) y la desviación estándar (\textit{sigma}) de los datos, para así primero restarle el promedio y dividirlos entre la desviación, con el fin de que los datos se comporten como una distribución normal
+    \item Después se añade una columna de 1's para que en la función de salida tenga una constante no multiplicada por una variable independiente
+    \item Se crea la variable de los coeficientes e intercepto \textit{theta}, inicializándola con 0's
+    \item Después, por cada iteración:
+    \begin{enumerate}
+      \item Se genera una nueva predicción haciendo el producto punto entre las variables independientes y la variable de coeficientes e intercepto
+      \item A la predicción se le resta la variable dependiente para obtener los errores de la predicción
+      \item Se multiplica la velocidad de aprendizaje, entre el número de filas en las variables independientes, por el producto punto de las variables independientes por los errores
+      \item Se resta este resultado a \textit{theta}
+      \item Se calcula el "costo" de esta predicción usando el error cuadrático medio
+      \item Se compara el costo con el costo de la iteración previa, y si la diferencia es menor a la precisión del algoritmo, este se detiene
+    \end{enumerate}
+  \end{enumerate}
+  \item La función \textit{predict}, que:
+  \begin{enumerate}
+    \item Recibe variables independientes \textit{x}
+    \item Las normaliza con los mismos parámetros (promedio y desviación estándar) con los que fueron normalizados los originales
+    \item Añade la columna de 1's
+    \item Multiplica estos datos por \textit{theta} usando el producto punto, para así obtener la predicción de la variable dependiente
+  \end{enumerate}
+\end{itemize}
+El código fuente de esta clase se encuentra en el apéndice F y está basado en el artículo de Gunjal, S.\cite{gunjalGradient}.
+
+Finalmente, gracias a que esta clase expone las mismas funciones que \textit{LinearRegression} de \textit{sklearn}, se pueden sustituir fácilmente, por lo que el código de esta demostración es muy parecido al de la regresión lineal, lo que cambian son los resultados, que no son conclusivos ya que la selección de datos de entrenamiento y pruebas es aleatoria. El código fuente de este apartado puede ser encontrado en el apéndice G.
+
+
+\subsection{Dataset MTCARS}
+Este segundo dataset se compone de 32 filas, cada uno con una variedad de datos sobre el rendimiento y las características del motor de diferentes modelos de automóviles. En esta demostración se utilizarán solamente las columnas de cilindrada ("\textit{disp}"), peso ("\textit{wt}") y caballos de fuerza ("\textit{hp}"); las dos primeras como variables independientes y la tercera como variable dependiente o de salida.
+
+\subsubsection{Análisis exploratorio}\hfill\\
+Al igual que con el dataset GENERO, se realizó un análisis estadístico inicial con R. La función \textit{summary} arrojó los siguientes resultados sobre las columnas que nos conciernen en este ejemplo:
+\begin{center}
+\begin{tabular}{ |c|c|c| }
+  \hline
+  disp & hp & wt \\
+  \hline
+  Min: 71.1 & Min: 52.0 & Min: 1.513 \\
+  1st Qu: 120.8 & 1st Qu: 96.5 & 1st Qu: 2.581 \\
+  Median: 196.3 & Median: 123.0 & Median: 3.325 \\
+  Mean: 230.7 & Mean: 146.7 & Mean: 3.217 \\
+  3rd Qu: 326.0 & 3rd Qu: 180.0 & 3rd Qu: 3.610 \\
+  Max: 472.0 & Max: 335.0 & Max: 5.424 \\
+  \hline
+\end{tabular}
+\end{center}
+
+Para este dataset se usaron las funciones \textit{boxplot} y \textit{pairs} para crear dos tipos de gráficos con los datos:
+La figura 3 incluye tres boxplots de las variables que incluiremos en la demostración: la cilindrada, el peso y los caballos de fuerza del motor.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcarsBoxplot.png}
+  \caption{Boxplot del dataset MTCARS}
+\end{figure}
+
+En segundo lugar está la figura 4, que incluye gráficas 6 gráficas de dispersión, comparando las 3 variables con cada combinación posible. De izquierda a derecha, de arriba hacia abajo:
+
+\begin{enumerate}
+  \item Caballos de fuerza vs cilindrada
+  \item Peso vs cilindrada
+  \item Cilindrada vs caballos de fuerza
+  \item Peso vs caballos de fuerza
+  \item Cilindrada vs peso
+  \item Caballos de fuerza vs peso
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcarsDispersion.png}
+  \caption{Gráficos de dispersión del dataset MTCARS}
+\end{figure}
+
+El código fuente de este análisis puede ser encontrado en el apéndice C.
+
+\subsubsection{Regresión lineal}\hfill\\
+Como consecuencia de que este dataset incluye muy pocas instancias o filas, se utilizó la metodología de validación \textit{n-fold cross}, en la que se divide el dataset en pequeños conjuntos, y así se escoje uno de estos para realizar las pruebas y los demás dataset para realizar el entrenamiento. Esta selección de conjunto de elementos rota entre todo el dataset para así poder escoger el conjunto que al ser probado tenga el menor error. Para realizar estas iteraciones entre los conjuntos se utilizó la clase \textit{KFold} del paquete \textit{sklearn.model\_selection}.
+Para este ejemplo el código sigue los pasos:
+\begin{enumerate}
+  \item Primero se lee el dataset utilizando \textit{pandas.read\_csv} y se obtiene un \textit{Dataframe}
+  \item Se crea el modelo de validación con\newline\textit{sklearn.model\_selection.KFold} y se iteran sobre los conjuntos de datos de entrenamiento y pruebas. Por cada uno de ellos:
+  \begin{enumerate}
+    \item Se separan las columnas de variables independientes ("\textit{disp}" y "\textit{wt}") y dependientes ("\textit{hp}") de los datos de entrenamiento
+    \item Se crea un modelo de regresión lineal con la clase\newline
+      \textit{sklearn.linear\_model.LinearRegression}\cite{scikit-learn}.
+    \item Se entrena el modelo con los datos de entrenamiento (independientes y dependientes)
+    \item Se extraen las columnas de los datos de prueba
+    \item Se predice una serie de datos usando las variables independientes de los datos de prueba
+    \item Se comparan los datos predecidos con la variable dependiente de los datos de prueba, mediante la fórmula del error cuadrático medio
+    \item Se añade el valor del error a una lista
+  \end{enumerate}
+  \item Finalmente se promedian los errores para obtener un error promedio
+\end{enumerate}
+
+Por defecto, la implementación de \textit{scikit-learn} de \textit{KFold} divide el dataset en 5 partes\cite{scikit-learn}, por lo que se obtienen 5 errores cuadráticos medios y coeficientes de determinación:
+\begin{enumerate}
+  \item 1084.202, 0.583
+  \item  489.059, 0.742
+  \item 1113.586, 0.818
+  \item 1739.342, 0.463
+  \item 7259.875, 0.102
+\end{enumerate}
+El promedio de estos errores es de un error cuadrático medio de 2337.21 y un coeficiente de determinación de 0.542.
+
+El código fuente de este análisis puede ser encontrado en el apéndice E.
+
+\subsubsection{Gradiente descendente}\hfill\\
+Al igual que en el apartado de gradiente descendente del anterior dataset, se utilizó la misma implementación de gradiente descendente, y como consecuencia de que exporta los mismos métodos que \textit{LinearRegression}, el código es muy parecido.
+Como resultados obtuvimos 5 errores cuadráticos medios y 5 coeficientes de determinación:
+\begin{enumerate}
+  \item 1050.437 ,0.597
+  \item 447.73, 0.764
+  \item 1124.836, 0.816
+  \item 1570.729, 0.515
+  \item 7431.13, 0.082
+\end{enumerate}
+El promedio de estos es 2324.97 para el error cuadrático medio y 0.555 para el coeficiente de determinación.
+
+El código fuente de este análisis puede ser encontrado en el apéndice H.
+
+
+\section{Resultados}
+\subsection{Dataset GENERO}
+Se elaboró un análisis exploratorio para las 10,000 filas de información del dataset; al observar el resumen de los datos hechos con R se puede apreciar que el comportamiento de los datos es muy semejante a una distribución normal pero agregando algunos outliers, es por esto que el boxplot tiene dicha figura centrada y balanceada; al graficar podemos apreciar que la distribución de los puntos es muy concentrada en el centro, dispersándose poco a poco a los extremos, parecido a la ¨campana¨ que se forma al graficar una distribución normal.
+Al elaborar la regresión lineal se utilizó la metodología de validación simple ya que el dataset era grande, y al evaluar el método nos indica que su \textbf{coeficiente de determinación es de 0.85} y \textbf{su error cuadrático medio (MSE) de 146}. Al graficar la regresión lineal se aprecia que la linea sigue la tendencia de los datos, concordando con el coeficiente de determinación mencionado anteriormente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_linearReg.png}
+\end{figure}
+
+
+\subsection{Dataset MTCARS}
+Se elaboró un análisis exploratorio para las 32 filas de información del dataset; de primera instancia se aprecia que el dataset no es muy grande, por lo que hacer un modelo de regresión lineal o de predicción resultará en algo muy alejado de la realidad. Al comenzar a explorarlo en R también observamos como se comportan los datos, los diagramas de caja muestran distribuciones diferentes para cada variable, al graficar los datos también quedan demasiado dispersos y no es posible apreciar una tendencia.
+Cuando se hizo la regresión lineal se utilizó la metodología de n-fold cross validation ya que el dataset era pequeño, el evaluar el método nos indica que \textbf{coeficiente de determinación promedio es de 0.542} y su \textbf{error cuadrático medio (MSE) promedio de 2337.21}, como era de esperarse, muy alejados de un resultado óptimo.
+Al graficarlo se muestra una tendencia entre los puntos, pero la dispersión es grande que la correlación termina siendo pequeña. Las gráficas de las validaciones pueden ser encontradas en apéndice A.
+
+\subsection{Gradiente descendente}
+Los resultados con el método del gradiente descendente fueron muy similares al de regresión lineal en términos del comportamiento y de precisión.
+El error cuadrático de este método arrojaba resultados parecidos al de la regresión lineal, aunque con un costo computacional mayor, por lo que consideramos más conveniente el método de regresión lineal. Como continuación de esta práctica nos gustaría experimentar con datasets más grandes y con diferentes comportamientos de datos para poder comparar cuál es mejor y en qué tipo de casos.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_gradient.png}
+\end{figure}
+
+Las gráficas del dataset MTCARS usando gradiente descendente se encuentran en el apéndice B.
+
+
+\section{Conclusiones y reflexiones}
+Existen múltiples metodologías para la creación de modelos de regresión lineal, en esta práctica pudimos probar dos: regresión lineal por mínimos cuadrados y gradiente descendente. Sin importar la metodología utilizada, las regresiones lineales tratan de predecir el comportamiento de una función a partir de variables. Durante esta práctica pudimos apreciar que estos métodos se comportan distinto dependiendo de la situación, por lo que no existe un método universal, si no que todo depende del problema a resolver y de las herramientas con las que se cuenta.
+Nosotros pudimos haber programado el cálculo de la regresión lineal desde cero pero al existir herramientas como scikit learn, podemos desarrollar fácilmente un modelo de regresión lineal para un conjunto de datos; algunas veces no todas la funciones se encuentran descritas en librerías, como la de BGD, por lo que siempre debemos de conocer los conceptos y teoría de las herramientas que empleamos. Si no existiera scikit learn aun así deberíamos poder haber realizado esta practica, herramientas como numpy, pandas y R la hacen mucho más sencilla, pero el conocer y dominar un tema como este es invaluable.
+El análisis de los datos resulta muy útil para entender su comportamiento antes de empezar a trabajar con ellos y comprobar si nuestro modelo nos está dando los resultados que esperamos.
+Quizá no pudimos llegar al 100\% de precisión con estos métodos, pero entre más grande es nuestro conjunto de datos, mejor nos aproximamos.
+
+
+\subsection{Refrexión de Abraham}
+Esta práctica fue todo un reto desde el principio, en la clase había entendido a un muy alto nivel los conceptos, pero al ponerlos en práctica me doy cuenta que hay que ejercitar el conocimiento en entregables como este, ya que lo que había entendido aquel día de clase ahora es mucho más claro al implementarlo. Pensé que esta práctica sería sencilla, pero mis conocimientos de Python, R y estadística no son muchos, es por ello que era difícil conectar conceptos cuando las instrucciones no eran del todo claras, por ejemplo cuando en el análisis pedía generar los boxplots ¨correspondientes¨ no sabía a que columnas se refería, igual que al implementar métodos de scikit learn, tuve que ir aprendiendo y comprendiendo desde la marcha. Mis conocimientos son mejores ahora, también mi habilidad para investigar mejoró. Ahora hablando especifícamente de la práctica, se me hizo muy interesante cómo la regresión lineal nos puede ayudar a predecir y también como el BGD también nos ayuda a aproximarnos, para la siguiente práctica me gustaría poder implementar las cosas con más facilidad y comprender mejor para no revolverme, el resultado se logró y estoy seguro de que lo aprendido me será de mucha utilidad en mi carrera profesional.
+
+\subsection{Reflexión de Mario}
+Considero que durante todo el desarrollo de la práctica pude obtener nuevos conocimientos: por un lado el uso de las librerías de Python sklearn, numpy, y pandas, y por otro en el ámbito de la estadística y los métodos numéricos aplicados a problemas reales como éste. La parte de la práctica que más disfruté fue implementar el algoritmo de gradiente descendente, ya que pude comprender la importancia de las librerías y cómo facilitan la creación de programas complejos, que en otros lenguajes sería un gran desafío.
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\clearpage
+
+\appendix
+
+\section{Gráficas de la metodología n-fold cross validation usando regresión lineal en el dataset MTCARS}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_linearReg_1.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_linearReg_2.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_linearReg_3.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_linearReg_4.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_linearReg_5.png}
+\end{figure}
+
+\clearpage
+
+\section{Gráficas de la metodología n-fold cross validation usando gradiente descendente en el dataset MTCARS}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_gradient_1.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_gradient_2.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_gradient_3.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_gradient_4.png}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{mtcars_gradient_5.png}
+\end{figure}
+
+\lstdefinestyle{customstyle}{
+  frame=single,
+  numbers=left,
+  numbersep=5pt,
+  showstringspaces=false
+}
+\lstset{style=customstyle}
+
+\begin{figure*}
+  \section{Código de análisis estadístico}
+  \lstinputlisting[language=R]{analisis.r}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de regresión lineal del dataset GENERO}
+  \lstinputlisting[language=Python]{genero_regresion.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de regresión lineal del dataset MTCARS}
+  \lstinputlisting[language=Python]{mtcars_regresion.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Nuestra implementación de gradiente descendente}
+  \lstinputlisting[language=Python]{GradientDescent.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de gradiente descendente del dataset GENERO}
+  \lstinputlisting[language=Python]{genero_gradiente.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de gradiente descendente del dataset MTCARS}
+  \lstinputlisting[language=Python]{mtcars_gradiente.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de generación de gráficas}
+  \lstinputlisting[language=Python]{graphs.py}
+\end{figure*}
+
+\end{document}
+\endinput
