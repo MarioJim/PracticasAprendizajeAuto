@@ -1,9 +1,9 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 
-from graphs import graphGENERO
+from graphs import graphConfusionMatrix, graphGENERO
 
 print(" ~ Reading genero.txt and generating train and test sets")
 data = pd.read_csv('genero.txt')
@@ -19,7 +19,10 @@ print(" ~ Testing sklearn's logistic regression model")
 yPredicted = regressor.predict(xTest)
 accuracy = accuracy_score(yTest, yPredicted)
 print("   → Accuracy:", accuracy)
+cm = confusion_matrix(yTest, yPredicted)
+print("   → Confusion matrix:", cm.tolist())
 
-# TODO
 graphGENERO(xTest, yTest, yPredicted, "Logistic Regression using sklearn",
             "genero_sklearn.png")
+graphConfusionMatrix(cm, ["Yes", "No"], "Gender",
+                     "GENERO with sklearn", "genero_cm_sklearn.png")

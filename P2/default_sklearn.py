@@ -1,9 +1,9 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 
-from graphs import graphDEFAULT
+from graphs import graphConfusionMatrix
 
 print(" ~ Reading default.txt and generating train and test sets")
 data = pd.read_csv('default.txt', sep="	")
@@ -23,7 +23,8 @@ print(" ~ Testing sklearn's logistic regression model")
 yPredicted = regressor.predict(xTest)
 accuracy = accuracy_score(yTest, yPredicted)
 print("   → Accuracy:", accuracy)
+cm = confusion_matrix(yTest, yPredicted)
+print("   → Confusion matrix:", cm.tolist())
 
-# TODO
-graphDEFAULT(xTest, yTest, yPredicted, "Logistic Regression using sklearn",
-             "default_sklearn.png")
+graphConfusionMatrix(cm, ["Yes", "No"], "Default",
+                     "DEFAULT w/sklearn", "default_cm_sklearn.png")

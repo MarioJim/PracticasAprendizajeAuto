@@ -1,9 +1,9 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 from GradientDescent import GradientDescent
-from graphs import graphGENERO
+from graphs import graphConfusionMatrix, graphGENERO
 
 print(" ~ Reading genero.txt and generating train and test sets")
 data = pd.read_csv('genero.txt')
@@ -19,6 +19,10 @@ print(" ~ Testing our logistric regression model with gradient descent")
 yPredicted = regressor.predict(xTest)
 accuracy = accuracy_score(yTest, yPredicted)
 print("   → Accuracy:", accuracy)
+cm = confusion_matrix(yTest, yPredicted)
+print("   → Confusion matrix:", cm.tolist())
 
-graphGENERO(xTest, yTest, yPredicted, "Logistic Regression using Gradient Descent",
-            "genero_gradient.png")
+graphGENERO(xTest, yTest, yPredicted, "Logistic Regression using gradient descent",
+            "genero_sklearn.png")
+graphConfusionMatrix(cm, ["Yes", "No"], "Gender",
+                     "GENERO with gradient descent", "genero_cm_gradient.png")
