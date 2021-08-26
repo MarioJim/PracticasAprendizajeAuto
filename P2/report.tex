@@ -1,0 +1,126 @@
+\documentclass[sigconf,authorversion,nonacm]{acmart}
+
+\usepackage{listings}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+\begin{document}
+
+\title{Práctica 2 \\ Regresión logística}
+
+\author{Mario Emilio Jiménez Vizcaíno}
+\email{A01173359@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+\author{Jesus Abraham Haros Madrid}
+\email{A01252642@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+
+\begin{abstract}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+
+
+\section{Conceptos previos}
+\begin{itemize}
+  \item Concepto
+\end{itemize}
+
+
+\section{Metodología}
+
+\subsection{Regresión logística con \textit{sklearn}}
+
+\subsubsection{Dataset DEFAULT}\hfill\\
+
+\subsubsection{Dataset GENERO}\hfill\\
+
+\subsection{Regresión logística con Gradiente Descendente}
+
+\subsubsection{Dataset DEFAULT}\hfill\\
+
+\subsubsection{Dataset GENERO}\hfill\\
+
+
+\section{Resultados}
+
+\subsection{Regresión logística con \textit{sklearn}}
+
+\subsubsection{Dataset DEFAULT}\hfill\\
+
+\subsubsection{Dataset GENERO}\hfill\\
+
+\subsection{Regresión logística con Gradiente Descendente}
+
+\subsubsection{Dataset DEFAULT}\hfill\\
+
+\subsubsection{Dataset GENERO}\hfill\\
+
+
+\section{Conclusiones y reflexiones}
+
+\subsection{Refrexión de Abraham}
+
+\subsection{Reflexión de Mario}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\clearpage
+
+\appendix
+
+\lstdefinestyle{customstyle}{
+  frame=single,
+  numbers=left,
+  numbersep=5pt,
+  showstringspaces=false
+}
+\lstset{style=customstyle}
+
+\begin{figure*}
+  \section{Código de regresión logística con sklearn del dataset DEFAULT}
+  \lstinputlisting[language=Python]{default_sklearn.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de regresión logística con sklearn del dataset GENERO}
+  \lstinputlisting[language=Python]{genero_sklearn.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Nuestra implementación de gradiente descendente}
+  \lstinputlisting[language=Python]{GradientDescent.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de regresión logística con gradiente descendente del dataset DEFAULT}
+  \lstinputlisting[language=Python]{default_gradiente.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de regresión logística con gradiente descendente del dataset GENERO}
+  \lstinputlisting[language=Python]{genero_gradiente.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de generación de gráficas}
+  \lstinputlisting[language=Python]{graphs.py}
+\end{figure*}
+
+\end{document}
+\endinput
