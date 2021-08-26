@@ -7,7 +7,7 @@ from graphs import graphGENERO
 
 print(" ~ Reading genero.txt and generating train and test sets")
 data = pd.read_csv('genero.txt')
-x = data.iloc[:, 1:2].values.reshape(-1, 1)
+x = data.iloc[:, 1:3].values.reshape(-1, 2)
 y = data.iloc[:, 0].values.reshape(-1, 1)
 xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.2)
 
