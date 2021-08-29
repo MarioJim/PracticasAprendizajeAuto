@@ -24,5 +24,5 @@ print("   → Confusion matrix:", cm.tolist())
 
 graphGENERO(xTest, yTest, yPredicted, "Logistic Regression using sklearn",
             "genero_sklearn.png")
-graphConfusionMatrix(cm, ["Yes", "No"], "Gender",
+graphConfusionMatrix(cm, ["Male", "Female"], "Gender",
                      "GENERO with sklearn", "genero_cm_sklearn.png")

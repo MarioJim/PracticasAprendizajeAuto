@@ -33,27 +33,77 @@
 \maketitle
 
 \section{Introducción}
+Actualmente, los modelos de regresión se han convertido en uno de los componentes más útiles del análisis de datos y el aprendizaje automático, en donde sea necesario describir la relación entre una variable resultante y una o más variables independientes. En algunos casos, la variable de resultado es discreta y adopta dos o más valores, es por eso que el modelo de regresión logística se ha convertido en muchos campos como el método estándar de análisis en esta situación.\cite{hosmer2013applied}
+
+En esta práctica demostraremos dos implementaciones de este modelo, la implementación de la librería de Python \textit{sci-kit learn} y nuestra implementación usando el método de gradiente descendente.
 
 
 \section{Conceptos previos}
 \begin{itemize}
-  \item Concepto
+  \item Programación básica en los lenguajes R y Python
+  \item Conocimiento de las librerías scikit-learn, pandas y numpy
+  \item Conocimientos de estadística y de regresión logística
 \end{itemize}
 
 
 \section{Metodología}
 
-\subsection{Regresión logística con \textit{sklearn}}
+\subsection{Datasets}
+Para comparar ambas implementaciones utilizamos dos datasets, expuestos a continuación:
 
 \subsubsection{Dataset DEFAULT}\hfill\\
+Este dataset está compuesto por 10,000 filas, cada una representa un cliente de un banco que puede o no cumplir con los pagos de su tarjeta de crédito (columna "default"). De cada cliente tenemos la siguiente información:
+\begin{itemize}
+  \item Columna "default": Tiene los valores "Yes"/"No", representa si la persona realizó el pago mínimo a su tarjeta de crédito.
+  \item Columna "student": Valores "Yes"/"No", representa si el cliente es un estudiante en ese momento.
+  \item Columna "balance": Número decimal positivo que representa el balance de la tarjeta de crédito del cliente. Promedio de 835.4, números en el rango [0, 2654.3].
+  \item Columna "income": Número decimal positivo que representa los ingresos que tiene el cliente. Promedio de 33517, números en el rango [772, 73554]
+\end{itemize}
+
+De este dataset, nuestro objetivo es predecir la columna "default" a partir de los otros tres parámetros, y como preparación cambiamos los valores de "student" ("Yes"/"No") a valores 1 y 0 respectivamente.
+
 
 \subsubsection{Dataset GENERO}\hfill\\
+Este dataset representa las mediciones de peso y altura de 10,000 personas, en conjunto con el género de la persona a la que se realizaron las medidas. Las columnas son:
+\begin{itemize}
+  \item "Gender": Valores "Male"/"Female", el género de la persona a la que le corresponde esta fila de mediciones.
+  \item "Height": La altura de la persona en pulgadas, promedio de 66.37, en el rango [54.26 y 79.00].
+  \item "Weight": El peso de la persona en libras, promedio de 161.4, en el rango [64.7, 270.0].
+\end{itemize}
+
+La columna objetivo seleccionada de este dataset fue el género ya que tiene dos clasificaciones.
+
+
+\subsection{Regresión logística con \textit{sklearn}}
+Para la primera parte de la práctica, en la que utilizamos la implementación de \textit{sci-kit learn}, seleccionamos la clase \newline\textit{sklearn.linear\_model.LogisticRegression}\cite{scikit-learn} para nuestros scripts.
+
+\subsubsection{Dataset DEFAULT}\hfill\\
+Para este dataset primero leemos el archivo CSV a un \textit{Dataframe} de \textit{pandas}, transformamos las columnas "default" y "student" para que contengan valores booleanos y enteros respectivamente, seleccionamos las columnas que nos servirán como variables independientes (columnas "student", "balance" e "income") y variable dependiente (columna "default"). Después partimos las filas del dataset en una porción del 80\% que usaremos para entrenar el modelo, y otra porción del 20\% para probarlo.
+
+Instanciamos el modelo de regresión de \textit{sklearn}, lo entrenamos con los datos y después predecimos la variable dependiente con el modelo para así compararlo con los datos reales de prueba, usando una medida de tasa de precisión y la matriz de confusión.
+
+El código de este ejemplo puede se encuentra en el apéndice A.
+
+\subsubsection{Dataset GENERO}\hfill\\
+Para este dataset realizamos un procedimiento similar: leer el dataset para crear un \textit{Dataframe}, seleccionar las columnas de variables independientes ("Height" y "Weight") y la dependiente ("Gender"), dividir el dataset en 80\%/20\%, entrenar el modelo, y predecir la variable dependiente para los datos de prueba, para así comparar estos con los datos reales.
+
+El código para esta sección se encuentra en el apéndice B.
+
 
 \subsection{Regresión logística con Gradiente Descendente}
+En esta sección de la práctica implementamos nuestra propia clase de gradiente descendente, e intentamos que los métodos de nuestro modelo fueran muy parecidos a los de la clase de \textit{sklearn} para que así fuera fácil intercambiar las implementaciones. A pesar de esto, implementamos algunas diferencias para que el código funcionara correctamente.
+
+Nuestra implementación del modelo de regresión logística se encuentra en el apéndice C.
 
 \subsubsection{Dataset DEFAULT}\hfill\\
+\textbf{TODO: Hablar de diferencias con el código anterior}
+
+El código fuente de este ejemplo se encuentra en el apéndice D.
 
 \subsubsection{Dataset GENERO}\hfill\\
+\textbf{TODO: Hablar de diferencias con el código anterior}
+
+El código fuente puede ser encontrado en el apéndice E.
 
 
 \section{Resultados}
@@ -61,21 +111,56 @@
 \subsection{Regresión logística con \textit{sklearn}}
 
 \subsubsection{Dataset DEFAULT}\hfill\\
+El modelo de regresión logística de \textit{sklearn} tuvo una tasa de precisión alrededor de 0.965, con una gráfica de la matriz de confusión así:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{default_cm_sklearn.png}
+  \caption{Matriz de confusión del dataset DEFAULT con la implementación de sklearn}
+\end{figure}
+
+Se puede observar que la gran mayoría de los resultados son positivos, por lo que el modelo usualmente acierta al clasificar la casi la totalidad de las filas como positivas.
 
 \subsubsection{Dataset GENERO}\hfill\\
+En este ejemplo, el modelo de \textit{sklearn} tuvo una tasa de precisión cercana a 0.925, y una matriz de confusión de esta forma:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_cm_sklearn.png}
+  \caption{Matriz de confusión del dataset GENERO con la implementación de sklearn}
+\end{figure}
+
+También se creó un diagrama de dispersión utilizando como eje X la altura de la persona, y en el eje Y el peso. Los puntos rojos representan personas del género femenino y los azules personas del género masculino.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_sklearn.png}
+  \caption{Diagrama de dispersión del dataset GENERO con la implementación de sklearn}
+\end{figure}
+
+La gráfica superior representa el conjunto de valores de prueba, mientras que la gráfica inferior muestra el género predecido por el modelo de regresión a partir de los valores de prueba.
+
+Para la generación de estas gráficas se utilizó el código incluído en el apéndice F.
 
 \subsection{Regresión logística con Gradiente Descendente}
 
 \subsubsection{Dataset DEFAULT}\hfill\\
+\textbf{TODO: Incluir gráficas}
 
 \subsubsection{Dataset GENERO}\hfill\\
-
+\textbf{TODO: Incluir gráficas}
 
 \section{Conclusiones y reflexiones}
+\textbf{TODO: Echarle choro de que la regresión logística sirve para clasificar, y que en el dataset DEFAULT no jaló muy bien porque había demasiados "Yes" en la columna de "default", y entonces el modelo frecuentemente los clasificaba "Yes"}
 
 \subsection{Refrexión de Abraham}
+\textbf{TODO}
 
 \subsection{Reflexión de Mario}
+Considero que esta práctica resolvió muchas de las dudas que tenía sobre la regresión logística y me ayudó a comprender en qué situaciones son útiles este tipo de algoritmos de clasificación, además de que, con el primer dataset, pude observar un ejemplo de un caso en el que probablemente la regresión logística no es la mejor solución a este problema ya que el dataset está demasiado sesgado hacia los clientes que no pagaron su tarjeta contra los que si.
+
+Además, mejoré mis habilidades en Python utilizando librerías como sklearn, numpy y pandas, herramientas usadas frecuentemente en este tipo de análisis de datos por su facilidad de manipular grandes cantidades de información y abstraer modelos complejos, para ser expresados en pocas líneas de código.
+
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
