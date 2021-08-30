@@ -35,4 +35,4 @@ print("   → Accuracy:", accuracy)
 cm = confusion_matrix(yTest, yPredicted)
 print("   → Confusion matrix:", cm.tolist())
 graphConfusionMatrix(cm, ["Yes", "No"], "Default",
-                     "DEFAULT w/sklearn", "default_cm_sklearn.png")
+                     "DEFAULT w/ gradient descent", "default_cm_gradient.png")

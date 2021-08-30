@@ -29,6 +29,6 @@ print("   → Accuracy:", accuracy)
 cm = confusion_matrix(yTest, yPredicted)
 print("   → Confusion matrix:", cm.tolist())
 graphGENERO(xTest, yTest, yPredicted, "Logistic Regression using gradient descent",
-            "genero_sklearn.png")
+            "genero_gradient.png")
 graphConfusionMatrix(cm, ["Male", "Female"], "Gender",
                      "GENERO with gradient descent", "genero_cm_gradient.png")
