@@ -28,8 +28,10 @@ class GradientDescent:
         prev_cost = -1
         for _ in range(self.max_iterations):
             predictions = x.dot(self.theta)
-
-            # TODO
+            muPredictions = 1 / (1 + np.exp(-1 * predictions))
+            errors = np.subtract(muPredictions, y)
+            sum_delta = (self.learning_rate / x.shape[0]) * x.T.dot(errors)
+            self.theta -= sum_delta
 
             cost = mean_squared_error(y, predictions)
             if abs(cost - prev_cost) < self.precision:
@@ -43,6 +45,12 @@ class GradientDescent:
 
         x = (x - self.mu) / self.sigma
         x = np.hstack((x, np.ones((x.shape[0], 1))))
-        x.dot(self.theta)
-
-        # TODO
+        predictions = x.dot(self.theta)
+        predictionSigmoide = 1 / (1 + np.exp(-1 * predictions))
+        result = np.array(list(map(self.roundSigmoide, predictionSigmoide)))
+        return result
+    
+    # Function to round to 0 or 1 the result of the sigmoide function
+    def roundSigmoide(self, t):
+        if t <= 0.5: return 0
+        return 1
