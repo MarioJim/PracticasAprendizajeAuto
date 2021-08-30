@@ -18,8 +18,6 @@ yTest = yTest.ravel()
 
 print(" ~ Creating our logistric regression model with gradient descent")
 regressor = GradientDescent()
-print(xTrain)
-print(yTrainToInt)
 regressor.fit(xTrain, yTrainToInt)
 
 print(" ~ Testing our logistric regression model with gradient descent")
