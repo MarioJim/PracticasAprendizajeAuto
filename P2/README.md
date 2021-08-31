@@ -15,26 +15,42 @@ Es posible también incluir los parámetros `--save-graphs` para generar archivo
 
 ```sh
 $ python default_sklearn.py
-TODO
+ ~ Reading default.txt and generating train and test sets
+ ~ Creating sklearn's logistic regression model
+ ~ Testing sklearn's logistic regression model
+   → Accuracy: 0.966
+   → Confusion matrix: [[1913, 14], [54, 19]]
 ```
 
 ### Output del script default_gradiente.py
 
 ```sh
 $ python default_gradiente.py
-TODO
+ ~ Reading default.txt and generating train and test sets
+ ~ Creating our logistric regression model with gradient descent
+ ~ Testing our logistric regression model with gradient descent
+   → Accuracy: 0.964
+   → Confusion matrix: [[1928, 0], [72, 0]]
 ```
 
 ### Output del script genero_sklearn.py
 
 ```sh
 $ python genero_sklearn.py
-TODO
+ ~ Reading genero.txt and generating train and test sets
+ ~ Creating sklearn's logistic regression model
+ ~ Testing sklearn's logistic regression model
+   → Accuracy: 0.918
+   → Confusion matrix: [[921, 84], [80, 915]]
 ```
 
 ### Output del script genero_gradiente.py
 
 ```sh
 $ python genero_gradiente.py
-TODO
+ ~ Reading genero.txt and generating train and test sets
+ ~ Creating our logistric regression model with gradient descent
+ ~ Testing our logistric regression model with gradient descent
+   → Accuracy: 0.9025
+   → Confusion matrix: [[925, 104], [91, 880]]
 ```
