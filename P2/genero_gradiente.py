@@ -13,7 +13,7 @@ y = data.iloc[:, 0].values.reshape(-1, 1)
 xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.2)
 
 # Convert String Male/Female to Int 0/1
-yTrainToInt = (yTrain.ravel() == "Male").astype(int) # Male = 1, Female = 0
+yTrainToInt = (yTrain.ravel() == "Male").astype(int)  # Male = 1, Female = 0
 yTest = yTest.ravel()
 
 print(" ~ Creating our logistric regression model with gradient descent")
@@ -23,11 +23,13 @@ regressor.fit(xTrain, yTrainToInt)
 print(" ~ Testing our logistric regression model with gradient descent")
 yPredicted = regressor.predict(xTest)
 # Convert Int 0/1 to Female/Male
-yPredicted = np.array(list(map((lambda x : "Male" if x == 1 else "Female"), yPredicted)))
+yPredicted = np.array(
+    list(map((lambda x: ["Female", "Male"][x]), yPredicted)))
 accuracy = accuracy_score(yTest, yPredicted)
 print("   → Accuracy:", accuracy)
 cm = confusion_matrix(yTest, yPredicted)
 print("   → Confusion matrix:", cm.tolist())
+
 graphGENERO(xTest, yTest, yPredicted, "Logistic Regression using gradient descent",
             "genero_gradient.png")
 graphConfusionMatrix(cm, ["Male", "Female"], "Gender",

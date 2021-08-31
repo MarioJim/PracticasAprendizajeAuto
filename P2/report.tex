@@ -95,17 +95,17 @@ En esta sección de la práctica implementamos nuestra propia clase de gradiente
 
 Nuestra implementación del modelo de regresión logística se encuentra en el apéndice C.
 
-Para implementar el gradiente descendente en esta practica se tuvo que hacer algunas modificaciones al algoritmo descrito en nuestra practica 1. Se tuvo que cambiar el algoritmo internamente al momento de hacer el calculo de theta, agregando el calculo de Miu como se describe en los requisitos de la practica, con esto podemos calcular correctamente la theta de nuestro modelo, y al momento de usar la predicción se agrego la función sigmoide para que nos posicionara todos los resultados predichos de 0 a 1 y así poder clasificar los datos en grupos, es por ello que se hizo una función para redondear el resultado de la función sigmoide. La predicción de nuestro gradiente descendente regresa una lista de 0 y 1, por ello se necesitan reconvertir estos valores a los originales del dataset, a continuación se explica lo que se hizo en cada uno para llegar al resultado deseado.
+Para implementar el gradiente descendente en esta práctica se tuvo que hacer algunas modificaciones al algoritmo descrito en nuestra práctica 1. Se tuvo que cambiar el algoritmo internamente al momento de hacer el cálculo de $\theta$, agregando el cálculo de $\mu$ como se describe en los requisitos de la práctica, con esto podemos calcular correctamente la $\theta$ de nuestro modelo, y al momento de usar la predicción se pasa por la función sigmoide para que posicionara todos los resultados predichos en el rango de 0 a 1 y así poder clasificar los datos en grupos, es por ello que se hizo una función para redondear el resultado de la función sigmoide. La predicción de nuestro gradiente descendente regresa una lista de números 0 y 1, por ello se necesitan reconvertir estos valores a los originales del dataset, a continuación se explica lo que se hizo en cada uno para llegar al resultado deseado.
 
 \subsubsection{Dataset DEFAULT}\hfill\\
-Muy parecido a lo que ya se ha estado haciendo con scikit learn, para poder trabajar con este dataset tendremos que leerlo para crear un dataframe, transformando los valores de la columna “default” y student a valores Enteros para poder entrenar nuestro modelo, después de esto partimos el data set para 80% de entrenamiento y 20% de pruebas.
+Muy parecido a lo que ya se ha estado haciendo con \textit{scikit learn}, para poder trabajar con este dataset tendremos que leerlo para crear un \textit{Dataframe}, transformando los valores de la columna “default” y "student" a valores enteros y así poder entrenar nuestro modelo. Después de esto partimos el dataset para 80\% de entrenamiento y 20\% de pruebas.
 
-Instanciamos nuestro Gradiente Descendente, lo entrenamos con los datos y después predecimos la variable dependiente con el modelo, la diferencia y el paso extra que tuvimos que hacer fue reconvertir la variable default de numero entero a valor booleano para poder comparar con el dataset original (esto pudo haberse hecho tambien convirtiendo el dataset original a numero entero, pero se decidio hacerse de esta manera para preservar los valores del dataset).
+Instanciamos nuestro Gradiente Descendente, lo entrenamos con los datos y después predecimos la variable dependiente con el modelo, la diferencia y el paso extra que tuvimos que hacer fue reconvertir la variable "default" de número entero a valor booleano para poder comparar con el dataset original (esto pudo haberse hecho también convirtiendo el dataset original a números enteros, pero se decidió hacer de esta manera para preservar los valores del dataset).
 
 El código fuente de este ejemplo se encuentra en el apéndice D.
 
 \subsubsection{Dataset GENERO}\hfill\\
-Al igual que con el dataset default, para poder predecir la variable dependiente en este dataset se utilizó lo mismo que en su implementación para scikit learn pero agregando una conversión de valores para la variable “genero”, convirtiéndola de los strings Male y Female a los valores enteros 0 y 1.
+Al igual que con el dataset default, para poder predecir la variable dependiente en este dataset se utilizó lo mismo que en su implementación para \textit{scikit learn} pero agregando una conversión de valores para la variable “genero”, convirtiéndola de los strings "Male" y "Female" a los valores enteros 0 y 1.
 
 Una vez entrenado el modelo se revierte la conversión de valores para poder preservar los valores del dataset.
 
@@ -147,12 +147,15 @@ La gráfica superior representa el conjunto de valores de prueba, mientras que l
 
 Para la generación de estas gráficas se utilizó el código incluído en el apéndice F.
 
-\vfill
-
 \subsection{Regresión logística con Gradiente Descendente}
 
 \subsubsection{Dataset DEFAULT}\hfill\\
-El modelo de regresión logística con \textit{gradiente descendente} tuvo una tasa de precisión alrededor de 0.965, con una gráfica de la matriz de confusión así:
+El modelo de regresión logística con \textit{gradiente descendente} tuvo resultados muy parecidos a los resultados del modelo de \textit{scikit learn}, ya que la mayoría de los resultados son positivos, lo cual es un acierto debido a que en el dataset original la mayoría de los datos se encuentran como positivos.
+
+Este modelo tuvo una tasa de precisión alrededor de 0.965, con matriz de confusión así:
+
+\vfill
+\pagebreak
 
 \begin{figure}[H]
   \centering
@@ -160,10 +163,9 @@ El modelo de regresión logística con \textit{gradiente descendente} tuvo una t
   \caption{Matriz de confusión del dataset DEFAULT con la implementación del gradiente descendente}
 \end{figure}
 
-Muy parecido a los resultados del modelo de scikit learn obtuvimos la mayoría de los resultados como positivos, lo cual es un acierto debido a que en el dataset original la mayoría de los datos se encuentran como positivos.
 
 \subsubsection{Dataset GENERO}\hfill\\
-El modelo de regresión logística con \textit{gradiente descendente} tuvo una tasa de predicción de 0.8965, con una gráfica de la matriz de confusión así:
+El modelo de regresión logística con \textit{gradiente descendente} tuvo una tasa de precisión de 0.8965, con una gráfica de la matriz de confusión así:
 
 \begin{figure}[H]
   \centering
@@ -171,9 +173,9 @@ El modelo de regresión logística con \textit{gradiente descendente} tuvo una t
   \caption{Matriz de confusión del dataset GENERO con la implementación del gradiente descendente}
 \end{figure}
 
-En este caso podemos ver como lo predicho por el modelo entrenado con scikit learn es un poco más preciso (aunque no muy notorio), aún asi su precisión es muy buena utilizando el gradiente descendente.
+En este caso podemos ver cómo lo predicho por el modelo entrenado con \textit{scikit learn} es un poco más preciso (aunque no muy notorio), aún asi su precisión es muy buena utilizando el gradiente descendente.
 
-Para esto tambien se creó un diagrama de dispersión para poder comparar el dataset original contra el predicho por el modelo del gradiente descendente, en el eje X utilizamos la altura y en el eje Y el peso, los puntos rojos representan las personas de genero femenino y de azul las del genero masculino.
+Para esto también se creó un diagrama de dispersión para poder comparar el dataset original contra el predicho por el modelo del gradiente descendente, en el eje X utilizamos la altura y en el eje Y el peso, los puntos rojos representan las personas de género femenino y de azul las del género masculino.
 
 \begin{figure}[H]
   \centering
@@ -183,14 +185,14 @@ Para esto tambien se creó un diagrama de dispersión para poder comparar el dat
 
 
 \section{Conclusiones y reflexiones}
-Existen múltiples formas de clasificar los datos de un dataset para poder hacer predicciones de variables y poder clasificarlas en grupos definidos, para esta práctica se utilizó la regresión logística que nos ayudó a clasificar los datos de ambos datasets, para el caso del genero nos ayudo a predecir el sexo dado altura y peso mientras que para el dataset default nos ayudó a predecir la columna default dadas las columnas student, balance e income. Al igual que en la practica anterior se predijeron los datos utilizando la librería scikit learn y el gradiente descendiente,
+Existen múltiples formas de clasificar los datos de un dataset para poder hacer predicciones de variables y poder clasificarlas en grupos definidos, para esta práctica se utilizó la regresión logística que nos ayudó a clasificar los datos de ambos datasets; para el caso del dataset GENERO, la regresión nos ayudo a predecir el sexo dado altura y peso, mientras que para el dataset DEFAULT nos ayudó a predecir la columna "default" dadas las columnas "student", "balance" e "income". Al igual que en la práctica anterior se predijeron los datos utilizando la librería \textit{scikit learn} y el gradiente descendiente,
 
-Se observaron resultados muy similares entre sklearn y el gradiente descendiente, en ambos hubo un problema al momento de predecir el dataset default y es que como hay muchos “yes” en la columna default, ambos modelos predecían como “Yes” para muchos casos, si se observan las gráficas de confusión de ambos modelos podemos apreciar como nunca predicen “No”.
+Se observaron resultados muy similares entre \textit{sklearn} y el gradiente descendiente, en ambos hubo un problema al momento de predecir el dataset DEFAULT y es que, como consecuencia de que muchos valores en la columna "default" son “Yes”, ambos modelos predecían “Yes” para muchos casos, si se observan las matrices de confusión de ambos modelos podemos apreciar como casi nunca predicen “No”.
 
 \subsection{Refrexión de Abraham}
-La practica pasada se me hizo muy complicado entender el funcionamiento interno del gradiente descendiente, sabía que hacía pero no como funcionaba, en esta practica, al tener que modificar el codigo interno de este, pude comprender mejor que está haciendo. Tambien se me hizo muy interesante la regresión logística y comprender la función sigmoide para poder clasificar y acotar los datos para dos categorías, me queda la duda sobre como clasificar para varias categorías pero supongo que ser verá en futuras practicas.
+La práctica pasada se me hizo muy complicado entender el funcionamiento interno del gradiente descendiente, sabía qué hacía pero no cómo funcionaba, en esta práctica, al tener que modificar el código interno de este, pude comprender mejor que está haciendo. También se me hizo muy interesante la regresión logística y comprender la función sigmoide para poder clasificar y acotar los datos para dos categorías, me queda la duda sobre como clasificar para varias categorías pero supongo que ser verá en futuras prácticas.
 
-Esta práctica fue más sencilla de hacer por el hecho de que fue parecida a la anterior, fue más un refuerzo de la clase en vez de mucho investigación como la practica anterior. Cada vez aprendo más sobre las funciones de numpy y python para trabajar con datos y matrices, aunque aún me falta mucho por aprender, estoy satisfecho de poder hacer practicas como estas que confirman y refuerzan lo aprendido en clase.
+Esta práctica fue más sencilla de hacer por el hecho de que fue parecida a la anterior, fue más un refuerzo de la clase en vez de mucho investigación como la práctica anterior. Cada vez aprendo más sobre las funciones de numpy y python para trabajar con datos y matrices, aunque aún me falta mucho por aprender, estoy satisfecho de poder hacer prácticas como estas que confirman y refuerzan lo aprendido en clase.
 
 
 \subsection{Reflexión de Mario}

@@ -17,7 +17,7 @@ y = data.iloc[:, 0].values.reshape(-1, 1)
 xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.2)
 
 # Convert Bool true/false to Int 1/0
-yTrainToInt = (yTrain.ravel() == True).astype(int) # True = 1, False = 0
+yTrainToInt = yTrain.ravel().astype(int)  # True = 1, False = 0
 yTest = yTest.ravel()
 
 print(" ~ Creating our logistric regression model with gradient descent")
@@ -28,11 +28,12 @@ print(" ~ Testing our logistric regression model with gradient descent")
 yPredicted = regressor.predict(xTest)
 
 # Convert Int 1/0 to True / False
-yPredicted = np.array(list(map((lambda x : True if x == 1 else False), yPredicted)))
+yPredicted = np.array(list(map((lambda x: x == 1), yPredicted)))
 
 accuracy = accuracy_score(yTest, yPredicted)
 print("   → Accuracy:", accuracy)
 cm = confusion_matrix(yTest, yPredicted)
 print("   → Confusion matrix:", cm.tolist())
+
 graphConfusionMatrix(cm, ["Yes", "No"], "Default",
                      "DEFAULT w/ gradient descent", "default_cm_gradient.png")
