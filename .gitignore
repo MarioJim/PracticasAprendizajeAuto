@@ -130,3 +130,7 @@ dmypy.json
 
 # For MAC OS
 .DS_Store
+
+P2/*.png
+*.gz
+*.zip
