@@ -1,6 +1,8 @@
 \documentclass[sigconf,authorversion,nonacm]{acmart}
 
 \usepackage{listings}
+\captionsetup{justification=centering, margin=1cm}
+
 
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
@@ -76,12 +78,12 @@ La columna objetivo seleccionada de este dataset fue el género ya que tiene dos
 \subsubsection{Dataset DEFAULT}\hfill\\
 \textbf{TODO}
 
-El código fuente de este ejemplo se encuentra en el apéndice C.
+El código fuente de este ejemplo se encuentra en el apéndice \ref{appendix:nn_default}.
 
 \subsubsection{Dataset GENERO}\hfill\\
 \textbf{TODO}
 
-El código fuente puede ser encontrado en el apéndice D.
+El código fuente puede ser encontrado en el apéndice \ref{appendix:nn_genero}..
 
 \subsection{Regresión logística}
 Para la primera parte de la práctica, en la que utilizamos la implementación de \textit{sci-kit learn}, seleccionamos la clase \newline\textit{sklearn.linear\_model.LogisticRegression}\cite{scikit-learn} para nuestros scripts.
@@ -91,12 +93,12 @@ Para este dataset primero leemos el archivo CSV a un \textit{Dataframe} de \text
 
 Instanciamos el modelo de regresión de \textit{sklearn}, lo entrenamos con los datos y después predecimos la variable dependiente con el modelo para así compararlo con los datos reales de prueba, usando una medida de tasa de precisión y la matriz de confusión.
 
-El código de este ejemplo puede se encuentra en el apéndice A.
+El código de este ejemplo puede se encuentra en el apéndice \ref{appendix:reg_default}.
 
 \subsubsection{Dataset GENERO}\hfill\\
 Para este dataset realizamos un procedimiento similar: leer el dataset para crear un \textit{Dataframe}, seleccionar las columnas de variables independientes ("Height" y "Weight") y la dependiente ("Gender"), dividir el dataset en 80\%/20\%, entrenar el modelo, y predecir la variable dependiente para los datos de prueba, para así comparar estos con los datos reales.
 
-El código para esta sección se encuentra en el apéndice B.
+El código para esta sección se encuentra en el apéndice \ref{appendix:reg_genero}.
 
 
 \section{Resultados}
@@ -106,17 +108,64 @@ El código para esta sección se encuentra en el apéndice B.
 \subsubsection{Dataset DEFAULT}\hfill\\
 \textbf{TODO}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{default_neighbors_acc.png}
+  \caption{Variación del número de vecinos elegidos contra la precisión en el dataset DEFAULT}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{default_neighbors_cm.png}
+  \caption{Matriz de confusión del dataset DEFAULT con 2-Nearest Neighbors}
+\end{figure}
+
 \subsubsection{Dataset GENERO}\hfill\\
 \textbf{TODO}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_neighbors_acc.png}
+  \caption{Variación del número de vecinos elegidos contra la precisión en el dataset GENERO}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_neighbors_cm.png}
+  \caption{Matriz de confusión del dataset GENERO con 1-Nearest Neighbors}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_neighbors_pred.png}
+  \caption{Gráfica de dispersión del dataset GENERO con 1-Nearest Neighbors}
+\end{figure}
 
 \subsection{Regresión logística}
 
 \subsubsection{Dataset DEFAULT}\hfill\\
 \textbf{TODO}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{default_regression_cm.png}
+  \caption{Matriz de confusión del dataset DEFAULT con regresión logística}
+\end{figure}
+
 \subsubsection{Dataset GENERO}\hfill\\
 \textbf{TODO}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_regression_cm.png}
+  \caption{Matriz de confusión del dataset GENERO con regresión logística}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{genero_regression_pred.png}
+  \caption{Gráfica de dispersión del dataset GENERO con regresión logística}
+\end{figure}
 
 \section{Conclusiones y reflexiones}
 \textbf{TODO}
@@ -144,28 +193,33 @@ El código para esta sección se encuentra en el apéndice B.
 \lstset{style=customstyle}
 
 \begin{figure*}
-  \section{Código de regresión logística del dataset DEFAULT}
-  % \lstinputlisting[language=Python]{default_sklearn.py}
-\end{figure*}
-
-\begin{figure*}
-  \section{Código de regresión logística del dataset GENERO}
-  % \lstinputlisting[language=Python]{genero_sklearn.py}
-\end{figure*}
-
-\begin{figure*}
-  \section{Código de clasificación k-NN del dataset DEFAULT}
-  % \lstinputlisting[language=Python]{default_gradiente.py}
+ \section{Código de regresión logística del dataset DEFAULT}
+  \label{appendix:nn_default}
+  \lstinputlisting[language=Python]{default_neighbors.py}
 \end{figure*}
 
 \begin{figure*}
   \section{Código de clasificación k-NN del dataset GENERO}
-  % \lstinputlisting[language=Python]{genero_gradiente.py}
+  \label{appendix:nn_genero}
+  \lstinputlisting[language=Python]{genero_neighbors.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de regresión logística del dataset DEFAULT}
+  \label{appendix:reg_default}
+  \lstinputlisting[language=Python]{default_regression.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código de regresión logística del dataset GENERO}
+  \label{appendix:reg_genero}
+  \lstinputlisting[language=Python]{genero_regression.py}
 \end{figure*}
 
 \begin{figure*}
   \section{Código de generación de gráficas}
-  % \lstinputlisting[language=Python]{graphs.py}
+  \label{appendix:graphs}
+  \lstinputlisting[language=Python]{graphs.py}
 \end{figure*}
 
 \end{document}
