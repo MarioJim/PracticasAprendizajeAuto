@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix
 
@@ -15,6 +16,8 @@ xTrain, xTest, yTrain, yTest = train_test_split(
 
 
 yIntToStr = np.vectorize(lambda x: ["Female", "Male"][int(x)])
+
+# Nearest neighbors
 
 print(" ~ Creating and testing the k-NN models for different values")
 print("   → neighbors   accuracy       confusion matrix")
@@ -42,3 +45,22 @@ graphGENERO(xTest, yTest, best_k_val[3], "{}-Nearest Neighbors".format(best_k_va
 graphConfusionMatrix(best_k_val[2], ["Female", "Male"], "Gender",
                      "GENERO: {}-Nearest Neighbors".format(best_k_val[0]),
                      "genero_neighbors_cm.png")
+
+
+# Logistic regression
+
+print(" ~ Creating the logistic regression model")
+regressor = LogisticRegression()
+regressor.fit(xTrain, yTrain.ravel())
+
+print(" ~ Testing the logistic regression model")
+yPredicted = regressor.predict(xTest)
+accuracy = accuracy_score(yTest, yPredicted)
+print("   → Accuracy:", accuracy)
+cm = confusion_matrix(yTest, yPredicted)
+print("   → Confusion matrix:", cm.tolist())
+
+graphGENERO(xTest, yTest, yPredicted, "Logistic Regression",
+            "genero_regression_pred.png")
+graphConfusionMatrix(cm, ["Male", "Female"], "Gender",
+                     "GENERO: Logistic Regression", "genero_regression_cm.png")
