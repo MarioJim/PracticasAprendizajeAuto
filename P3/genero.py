@@ -15,11 +15,10 @@ xTrain, xTest, yTrain, yTest = train_test_split(
     x, y, test_size=0.2, random_state=0)
 
 
-yIntToStr = np.vectorize(lambda x: ["Female", "Male"][int(x)])
-
 # Nearest neighbors
 
 print(" ~ Creating and testing the k-NN models for different values")
+yIntToStr = np.vectorize(lambda x: ["Female", "Male"][int(x)])
 print("   → neighbors   accuracy       confusion matrix")
 k_neighbors_vals = [1, 2, 3, 5, 10, 15, 20, 50, 75, 100]
 accuracy_vals = []
@@ -37,14 +36,11 @@ for val in k_neighbors_vals:
     print("   → {:^9}   {:^8}   {}".format(val, accuracy, cm.tolist()))
     if best_k_val[1] < accuracy:
         best_k_val = (val, accuracy, cm, yPredicted)
-
 print("\n   → Confusion matrix:", best_k_val[2].tolist())
-# Calculate True positive rate and false positive rate to compare models
-# TPR = TP / (TP + FN)
-knn_tpr = best_k_val[2][0][0] / best_k_val[2][0].sum()
-# FPR = FP / (FP + TN)
-knn_fpr = best_k_val[2][1][0] / best_k_val[2][1].sum()
 
+# Calculate true positive rate and false positive rate to compare models
+knn_tpr = best_k_val[2][0][0] / best_k_val[2][0].sum()  # TPR = TP / (TP + FN)
+knn_fpr = best_k_val[2][1][0] / best_k_val[2][1].sum()  # FPR = FP / (FP + TN)
 graphNeighborsAccuracy(k_neighbors_vals, accuracy_vals,
                        "GENERO", "genero_neighbors_acc.png")
 graphGENERO(xTest, yTest, best_k_val[3], "{}-Nearest Neighbors".format(best_k_val[0]),
@@ -67,15 +63,12 @@ print("   → Accuracy:", accuracy)
 cm = confusion_matrix(yTest, yPredicted)
 print("   → Confusion matrix:", cm.tolist())
 
-# Calculate True positive rate and false positive rate to compare models
-# TPR = TP / (TP + FN)
-lr_tpr = cm[0][0] / cm[0].sum()
-# FPR = FP / (FP + TN)
-lr_fpr = cm[1][0] / cm[1].sum()
-
+# Calculate true positive rate and false positive rate to compare models
+lr_tpr = cm[0][0] / cm[0].sum()  # TPR = TP / (TP + FN)
+lr_fpr = cm[1][0] / cm[1].sum()  # FPR = FP / (FP + TN)
 graphGENERO(xTest, yTest, yPredicted, "Logistic Regression",
             "genero_regression_pred.png")
 graphConfusionMatrix(cm, ["Male", "Female"], "Gender",
                      "GENERO: Logistic Regression", "genero_regression_cm.png")
-graphROC(knn_tpr, knn_fpr, lr_tpr, lr_fpr, 
-        "Genero", "ROC_comparasion.png")
+graphROC(knn_tpr, knn_fpr, lr_tpr, lr_fpr,
+         "GENERO", "genero_roc_curve.png")

@@ -19,7 +19,6 @@ xTrain, xTest, yTrain, yTest = train_test_split(
 
 
 # Nearest neighbors
-
 print(" ~ Creating and testing the k-NN models for different values")
 print("   → neighbors   accuracy       confusion matrix")
 k_neighbors_vals = [1, 2, 3, 5, 10, 15, 20, 50, 75, 100]
@@ -39,15 +38,14 @@ for val in k_neighbors_vals:
 graphNeighborsAccuracy(k_neighbors_vals, accuracy_vals,
                        "DEFAULT", "default_neighbors_acc.png")
 graphConfusionMatrix(best_k_val[2], ["Yes", "No"], "Default",
-                     "DEFAULT: {}-Nearest Neighbors".format(best_k_val[0]), "default_neighbors_cm.png")
+                     "DEFAULT: {}-Nearest Neighbors".format(best_k_val[0]),
+                     "default_neighbors_cm.png")
 
 
 # Logistic regression
-
 print("\n\n ~ Creating the logistic regression model")
 regressor = LogisticRegression()
 regressor.fit(xTrain, yTrain.ravel())
-
 print(" ~ Testing the logistic regression model")
 yPredicted = regressor.predict(xTest)
 accuracy = accuracy_score(yTest, yPredicted)

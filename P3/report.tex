@@ -30,21 +30,21 @@
 
 
 \begin{abstract}
-Esta practica tiene el propósito de demostrar dos metodologías de predicción para la clasificación de datos, una utilizando regresión logística y la otra utilizando el algoritmo de los K vecinos más cercanos. El objetivo de esta es entrenar un modelo utilizando ambos algoritmos para poder compararlos en términos de precisión y poder llegar a conclusiones en cuanto a su uso, este trabajo fue realizado utilizando la librería scikit learn para la creación de los modelos de regresión.
+Esta práctica tiene el propósito de demostrar dos metodologías de predicción para la clasificación de datos, una utilizando regresión logística y la otra utilizando el algoritmo de los $k$ vecinos más cercanos. El objetivo de esta es entrenar un modelo utilizando ambos algoritmos para poder compararlos en términos de precisión y poder llegar a conclusiones en cuanto a su uso; este trabajo fue realizado utilizando la librería \textit{scikit-learn} para la creación de los modelos de regresión.
 \end{abstract}
 
 \maketitle
 
 \section{Introducción}
-Hoy en día existen múltiples métodos para analizar datos y en base a ese análisis hacer aprendizaje automático, en la practica pasada pudimos ver un ejemplo de predicción de datos utilizando regresión logística y gradiente descendente para predecir en que grupo estarían ubicados los datos. En esta practica se elaborará algo parecido pero reemplazando lo que fue el gradiente descendente por el algoritmo de clasificación de los K vecinos más cercanos, de está manera expandimos nuestro conocimiento en las diferentes metodologías que existen.
-Se utilizará scikit learn para la creación de los modelos de predicción, el procedimiento será el mismo que en la practica anterior, se partirán los datasets de manera aleatoria en una proporción 80\% - 20\% para generar el training set y el test set, respectivamente. En todos los casos se hará uso de la validación simple y se ejecutará el entrenamiento utilizando los mismos datos para ambos modelos.
+Hoy en día existen múltiples métodos para analizar datos y en base a ese análisis hacer aprendizaje automático; en la práctica pasada pudimos ver un ejemplo de predicción de datos utilizando regresión logística y gradiente descendente para predecir en qué grupo estarían ubicados los datos. En esta práctica se elaborará algo parecido, reemplazando lo que fue el gradiente descendente por el algoritmo de clasificación de los $k$ vecinos más cercanos, de esta manera expandimos nuestro conocimiento en las diferentes metodologías que existen.
+Se utilizará \textit{scikit-learn} para la creación de los modelos de predicción, el procedimiento será el mismo que en la práctica anterior, se partirán los datasets de manera aleatoria en una proporción 80\% - 20\% para generar el training set y el test set, respectivamente. En todos los casos se hará uso de la validación simple y se ejecutará el entrenamiento utilizando los mismos datos para ambos modelos.
 
 \section{Conceptos previos}
 \begin{itemize}
   \item Programación básica en los lenguajes R y Python
-  \item Conocimiento de las librerías scikit-learn, pandas y numpy
+  \item Conocimiento de las librerías \textit{scikit-learn}, \textit{pandas} y \textit{numpy}
   \item Conocimientos de estadística y de regresión logística
-  \item Algoritmo K vecinos más cercanos
+  \item Algoritmo $k$ vecinos más cercanos
   \item Espacio ROC
 \end{itemize}
 
@@ -77,25 +77,29 @@ Este dataset representa las mediciones de peso y altura de 10,000 personas, en c
 La columna objetivo seleccionada de este dataset fue el género ya que tiene dos clasificaciones.
 
 \subsection{Clasificación con k-NN}
-Para esta etapa de la práctica utilizaremos el algoritmo que se encuentra implementado en la libreria sci-kit learn, especificamente la clase sklearn.neighbors.KNeighborsRegressor
-Lo primero que se hizo fue declarar un arreglo k\_neighbors que contenía los valores 1, 2, 3, 4, 10, 15, 20, 50, 75, 100 los cuales son el número de vecinos que utilizará el algoritmo para clasificar. Establecemos brute como el valor de algorithm para la clase NearestNeighbors\(\).
-Después se corrió un ciclo iterando sobre el arreglo k\_neighbors para entrenar el modelo variando los K vecinos, para cada ciclo se calculó la precisión de los modelos (obtener la tasa de precisión) y la matriz de confusión.
-Con base a los valores obtenidos de las tasas de precisión de cada uno se generó una gráfica donde se muestran los k vecinos contra la tasa de precisión obtenida por cada dataset.
+Para esta etapa de la práctica utilizaremos el algoritmo que se encuentra implementado en la librería \textit{scikit-learn}, específicamente la clase \textit{sklearn.neighbors.KNeighborsRegressor}.
+
+Lo primero que se hizo fue declarar un arreglo \textit{k\_neighbors} que contenía los valores 1, 2, 3, 4, 10, 15, 20, 50, 75, 100, los cuales son el número de vecinos que utilizará el algoritmo para clasificar. Establecemos brute como el valor de algorithm para la clase \textit{NearestNeighbors}.
+
+Después se corrió un ciclo iterando sobre el arreglo \textit{k\_neighbors} para entrenar el modelo variando los $k$ vecinos, para cada ciclo se calculó la precisión de los modelos (obtener la tasa de precisión) y la matriz de confusión.
+
+Con base a los valores obtenidos de las tasas de precisión de cada uno se generó una gráfica donde se muestran los $k$ vecinos contra la tasa de precisión obtenida por cada dataset.
+
 \subsubsection{Dataset DEFAULT}\hfill\\
 Para este dataset primero leemos el archivo CSV a un Dataframe de pandas, transformamos las columnas ”default” y ”student” para que contengan valores booleanos y enteros respectivamente, seleccionamos las columnas que nos servirán como variables independientes (columnas ”student”, ”balance” e ”income”) y variable dependiente (columna ”default”). Después partimos las filas del dataset en una porción del 80\% que usaremos para entrenar el modelo, y otra porción del 20\% para probarlo.
 Instanciamos KNN de sklearn, lo entrenamos con los datos y después predecimos la variable dependiente con el modelo para así compararlo con los datos reales de prueba, usando una medida de tasa de precisión y la matriz de confusión.
 
 El código fuente de este ejemplo se encuentra en el apéndice \ref{appendix:nn_default}.
+
 \subsubsection{Dataset GENERO}\hfill\\
 Para este dataset realizamos un procedimiento similar: leer el dataset
-para crear un Dataframe, seleccionar las columnas de variables independientes (”Height” y ”Weight”) y la dependiente (”Gender”),
-dividir el dataset en 80\%/20\%, entrenar el modelo, y predecir la variable dependiente para los datos de prueba, para así comparar estos
-con los datos reales.
+para crear un Dataframe, seleccionar las columnas de variables independientes ("Height" y "Weight") y la dependiente ("Gender"), dividir el dataset en 80\%/20\%, entrenar el modelo, y predecir la variable dependiente para los datos de prueba, para así comparar estos con los datos reales.
 
-El código fuente puede ser encontrado en el apéndice \ref{appendix:nn_genero}..
+El código fuente puede ser encontrado en el apéndice \ref{appendix:nn_genero}.
 
 \subsection{Regresión logística}
-Para la primera parte de la práctica, en la que utilizamos la implementación de \textit{sci-kit learn}, seleccionamos la clase \newline\textit{sklearn.linear\_model.LogisticRegression}\cite{scikit-learn} para nuestros scripts.
+Para la primera parte de la práctica, en la que utilizamos la implementación de \textit{scikit-learn}, seleccionamos la clase \newline\textit{sklearn.linear\_model.LogisticRegression}\cite{scikit-learn} para nuestros scripts.
+
 
 \subsubsection{Dataset DEFAULT}\hfill\\
 Para este dataset primero leemos el archivo CSV a un \textit{Dataframe} de \textit{pandas}, transformamos las columnas "default" y "student" para que contengan valores booleanos y enteros respectivamente, seleccionamos las columnas que nos servirán como variables independientes (columnas "student", "balance" e "income") y variable dependiente (columna "default"). Después partimos las filas del dataset en una porción del 80\% que usaremos para entrenar el modelo, y otra porción del 20\% para probarlo.
@@ -115,7 +119,7 @@ El código para esta sección se encuentra en el apéndice \ref{appendix:nn_gene
 \subsection{Clasificación con k-NN}
 
 \subsubsection{Dataset DEFAULT}\hfill\\
-Al iterar sobre la cantidad de vecinos para el algoritmo K-NN pudimos observar como al tener un solo vecino se tiene la precisión más baja mientras que al tener dos vecinos para hacer la clasificación se presenta la precisión más alta, para una mayor cantidad de vecinos baja pero se mantiene constante con una precisión de 0.963.
+Al iterar sobre la cantidad de vecinos para el algoritmo k-NN pudimos observar que cuando se selecciona un sólo vecino se tiene la precisión más baja, mientras que al seleccionar dos vecinos para hacer la clasificación se presenta la precisión más alta de 0.966, y después, con una mayor cantidad de vecinos, la precisión baja y se mantiene constante en un valor de 0.963.
 
 \begin{figure}[H]
   \centering
@@ -132,7 +136,7 @@ La matriz de confusión obtenida para el dataset default utilizando k-NN fue la 
 \end{figure}
 
 \subsubsection{Dataset GENERO}\hfill\\
-Al iterar sobre la cantidad de vecinos para el algoritmo K-NN pudimos observar como al tener un solo vecino se tiene la precisión más alta y conforme se aumenta el número de vecinos la precisión de K-NN va bajando, siendo la mayor precisión con un vecino de 0.884 y la peor precisión con 100 vecinos de 0.677.
+Al iterar sobre la cantidad de vecinos para el algoritmo k-NN pudimos observar como al tener un sólo vecino se tiene la precisión más alta y conforme se aumenta el número de vecinos la precisión de k-NN va bajando, siendo la mayor precisión con un vecino de 0.884 y la peor precisión con 100 vecinos de 0.677.
 
 \begin{figure}[H]
   \centering
@@ -167,14 +171,14 @@ El modelo de regresión logística tuvo una tasa de precisión de 0.965, con una
   \caption{Matriz de confusión del dataset DEFAULT con regresión logística}
 \end{figure}
 
-Se puede apreciar como para el dataset default la regresión logística tuvo peor precisión que K-NN pero la diferencia fue casi despreciable, siendo de 0.966 a 0.965.
+Se puede apreciar como para el dataset DEFAULT la regresión logística tuvo peor precisión que k-NN pero la diferencia fue casi despreciable, siendo de 0.966 a 0.965.
 
 \subsubsection{Dataset GENERO}\hfill\\
-Para este dataset el modelo de regresión logística tuvo una tasa de precisión de 0.9225 con la siguiente  gráfica de la matriz de confusión.
+Para este dataset el modelo de regresión logística tuvo una tasa de precisión de 0.9225 con la siguiente gráfica de la matriz de confusión.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{genero_regression_cm.png}
+  \includegraphics[width=210pt]{genero_regression_cm.png}
   \caption{Matriz de confusión del dataset GENERO con regresión logística}
 \end{figure}
 
@@ -182,38 +186,37 @@ Se creó un diagrama de dispersión utilizando como eje X la altura de la person
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{genero_regression_pred.png}
+  \includegraphics[width=210pt]{genero_regression_pred.png}
   \caption{Gráfica de dispersión del dataset GENERO con regresión logística}
 \end{figure}
 
 \subsection{Comparación de clasificadores}
-
-En ambos casos los resultados de la matriz de confusión fueron muy similares, si comparamos la figura 4 con la figura 7 los valores en cada cuadrante tienen muy poca variación respecto a la otra.
+En ambos casos los resultados de la matriz de confusión fueron muy similares; si comparamos la figura 4 con la figura 7 los valores en cada cuadrante tienen muy poca variación respecto a la otra.
 
 Ahora si comparamos las gráficas de dispersión elaboradas con los resultados de los clasificadores la historia es muy parecida, ambas se ven casi idénticas con diferencias mínimas que cambian en cada corrida del algoritmo, ambas son muy similares. 
 
-El espacio ROC nos sirve para poder identificar las ventajas y desventajas de cada clasificador graficando el promedio de los falsos positivos y verdaderos positivos en un plano.
+El espacio ROC nos sirve para poder identificar las ventajas y desventajas de cada clasificador graficando el promedio de los falsos positivos y verdaderos positivos en un plano. Lo ideal para un modelo es que este su TPR esté lo más cercano al 1 y su FPR lo más cercano al 0, esa sería la precisión ideal de predicción.
 
-A continuación utilizaremos las matrices de confusión creadas por ambos clasificadores para el dataset genero y calcularemos su True positive rate y False positive rate Para poder graficarlos en el espacio ROC y poder determinar cual es el mejor clasificador.
+A continuación utilizaremos las matrices de confusión creadas por ambos clasificadores para el dataset GENERO y calcularemos su True positive rate y False positive rate para poder graficarlos en el espacio ROC y poder determinar cuál es el mejor clasificador.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{ROC_comparasion.png}
-  \caption{Gráfica del espacio ROC comparando ambos modelos de clasificación.}
+  \includegraphics[width=\linewidth]{genero_roc_curve.png}
+  \caption{Gráfica del espacio ROC comparando ambos modelos de clasificación}
 \end{figure}
 
-Se puede observar como la regresión logística es mejor método que el K-NN pero por muy poco. Al tener un TPR mayor y menor FPR que KNN se puede llegar a la conclusión de que es mejor la regresión logística, el caso interesante hubiera sido que uno hubiera tenido mayor TPR que el otro pero tambien mayor FPR, ahí pudieramos tomar una comparativa y analizar a profundidad sus desventajas y ventajas para tomar una decisión de que modelo utilizar.
-Lo ideal para un modelo es que este su TPR esté lo más cercano al 1 y su FPR lo más cercano al 0, esa sería la precisión ideal de predicción.
+Se puede observar como la regresión logística es mejor método que el k-NN pero por muy poco. Al tener un TPR mayor y menor FPR que k-NN se puede llegar a la conclusión de que es mejor la regresión logística, el caso interesante hubiera sido que uno hubiera tenido mayor TPR que el otro pero también mayor FPR, ahí pudieramos tomar una comparativa y analizar a profundidad sus desventajas y ventajas para tomar una decisión de que modelo utilizar.
+
 
 \section{Conclusiones y reflexiones}
-En la practica anterior nos dimos cuenta de que existen múltiples formas de clasificar los datos de un dataset para poder hacer predicciones de sus variables, en esta practica pudimos aprender una nueva manera, K vecinos más cercanos (K-NN). Fue muy interesante ver el comportamiento de un nuevo método y ver como era un procedimiento completamente distinto a la regresión logística pero su resultado muy similar a ella.
+En la práctica anterior nos dimos cuenta de que existen múltiples formas de clasificar los datos de un dataset para poder hacer predicciones de sus variables, en esta práctica pudimos aprender una nueva manera, K vecinos más cercanos (K-NN). Fue muy interesante ver el comportamiento de un nuevo método y ver como era un procedimiento completamente distinto a la regresión logística pero su resultado muy similar a ella.
 
 Pudimos predecir el sexo de una persona dada su altura y su peso y tambien predecir la columna ¨default¨ del dataset default.
 
-Al igual que en todas las practicas fue muy útil utilizar las funciones, clases y métodos incluidas en scikit learn para elaborar esta practica.
+Al igual que en todas las prácticas fue muy útil utilizar las funciones, clases y métodos incluidas en scikit learn para elaborar esta práctica.
 
 
-Al final se pudieron observar resultados muy similares entre ambos métodos, algo que cambió de la práctica anterior a esta fue que tuvimos que utilizar los mismos conjuntos de datos para entrenar ambos modelos, en practicas pasadas se pudo observar más variación en los resultados debido a que se generaban de nuevo los conjuntos de entrenamiento y prueba por cada método de clasificación, esta vez al ser solo un set de datos los resultados fueron más similares entre cada método.
+Al final se pudieron observar resultados muy similares entre ambos métodos, algo que cambió de la práctica anterior a esta fue que tuvimos que utilizar los mismos conjuntos de datos para entrenar ambos modelos, en prácticas pasadas se pudo observar más variación en los resultados debido a que se generaban de nuevo los conjuntos de entrenamiento y prueba por cada método de clasificación, esta vez al ser solo un set de datos los resultados fueron más similares entre cada método.
 
 
 Por último conocer sobre el espacio ROC y el comportamiento de predicción ideal de los datasets fue muy interesante y a la vez muy útil para poder comparar las precisiones de diferentes métodos de clasificación, al tomar en cuenta su FPR y su TPR se pueden ver también las ventajas y desventajas de cada modelo.
@@ -221,11 +224,14 @@ Por último conocer sobre el espacio ROC y el comportamiento de predicción idea
 \subsection{Refrexión de Abraham}
 Esta práctica me permitió ver mi avance personal en esta materia, esta vez se me hizo sencillo implementar un modelo nuevo, también me sentí más seguro de lo que estaba pasando ya que se tomó como método la regresión logística que ya había trabajado anteriormente, me pareció muy bueno ver como diferentes métodos se acercan al mismo resultado y poder comparar la precisión de los métodos en el espacio ROC para poder seleccionar el mejor.
 
-Al implementar K-NN observé que tener más número de vecinos no da mejores resultados, dependiendo del caso de uso y del dataset podemos ver como K vecinos fluctua, siento que fue muy util comparar los K vecinos y tomar el mejor, solo me queda la duda de que rango es el mejor para comprar (de 0 a 10, de 0 a 100, de 0 a 1000).
+Al implementar K-NN observé que tener más número de vecinos no da mejores resultados, dependiendo del caso de uso y del dataset podemos ver como K vecinos fluctúa, siento que fue muy útil comparar los K vecinos y tomar el mejor, sólo me queda la duda de qué rango es el mejor para comparar (de 0 a 10, de 0 a 100, de 0 a 1000).
 
-Practicas como esta hacen que lo aprendido en clase se convierta en conocimiento aplicable.
+Prácticas como esta hacen que lo aprendido en clase se convierta en conocimiento aplicable.
+
 \subsection{Reflexión de Mario}
-\textbf{TODO}
+En mi opinión, esta práctica fue muy útil para visualizar cómo funciona el algoritmo de los $k$ vecinos más cercanos, especialmente con la gráfica de dispersión del dataset GENERO, ya que como curiosidad generé las gráficas para los demás valores de $k$ y pude observar cómo se mantenía la precisión en los alrededores de la gráfica, pero en el centro realmente predominaban las clasificaciones de los puntos con el género femenino, problema que fue resuelto en los modelos que utilizaban un valor de $k$ menor (entre 1 y 5).
+
+También considero que esta práctica fue mucho menos pesada en cuestión de trabajo ya que ya habíamos trabajado con estos dos datasets, y ya habíamos generado modelos de regresión logística en la práctica anterior.
 
 
 \bibliographystyle{ACM-Reference-Format}
@@ -252,13 +258,21 @@ Practicas como esta hacen que lo aprendido en clase se convierta en conocimiento
 \begin{figure*}
   \section{Código de clasificación k-NN  y regresión logística del dataset GENERO}
   \label{appendix:nn_genero}
-  \lstinputlisting[language=Python]{genero.py}
+  \lstinputlisting[language=Python,lastline=52]{genero.py}
+\end{figure*}
+
+\begin{figure*}
+  \lstinputlisting[language=Python,firstnumber=52,firstline=52]{genero.py}
 \end{figure*}
 
 \begin{figure*}
   \section{Código de generación de gráficas}
   \label{appendix:graphs}
-  \lstinputlisting[language=Python]{graphs.py}
+  \lstinputlisting[language=Python,lastline=54]{graphs.py}
+\end{figure*}
+
+\begin{figure*}
+  \lstinputlisting[language=Python,firstnumber=56,firstline=56]{graphs.py}
 \end{figure*}
 
 \end{document}
