@@ -76,3 +76,26 @@ def graphNeighborsAccuracy(k_neighbors, accuracy, title, filename):
         plt.savefig(filename)
     if shouldDisplay:
         plt.show()
+
+def graphROC(knn_tpr, knn_fpr, lr_tpr, lr_fpr, title, filename):
+    plt.figure()
+    plt.title(title + ': Comparación de modelos de predicción en el espacio ROC')
+    plt.plot([0, 1], [0, 1], 'k--', lw=2)
+
+    knn = plt.scatter(knn_fpr, knn_tpr, c='b')
+    lr = plt.scatter(lr_fpr, lr_tpr, c='r')
+
+    plt.legend((knn, lr), 
+                ('K Nearest neighbors', 'Logistic Regression'), 
+                scatterpoints=1,
+                loc='lower left',
+                ncol=3,
+                fontsize=8)
+
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+
+    if shouldSave:
+        plt.savefig(filename)
+    if shouldDisplay:
+        plt.show()

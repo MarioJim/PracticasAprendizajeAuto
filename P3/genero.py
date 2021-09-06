@@ -5,7 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix
 
-from graphs import graphConfusionMatrix, graphNeighborsAccuracy, graphGENERO
+from graphs import graphConfusionMatrix, graphNeighborsAccuracy, graphGENERO, graphROC
 
 print(" ~ Reading genero.txt and generating train and test sets")
 data = pd.read_csv('genero.txt')
@@ -38,6 +38,13 @@ for val in k_neighbors_vals:
     if best_k_val[1] < accuracy:
         best_k_val = (val, accuracy, cm, yPredicted)
 
+print("\n   → Confusion matrix:", best_k_val[2].tolist())
+# Calculate True positive rate and false positive rate to compare models
+# TPR = TP / (TP + FN)
+knn_tpr = best_k_val[2][0][0] / best_k_val[2][0].sum()
+# FPR = FP / (FP + TN)
+knn_fpr = best_k_val[2][1][0] / best_k_val[2][1].sum()
+
 graphNeighborsAccuracy(k_neighbors_vals, accuracy_vals,
                        "GENERO", "genero_neighbors_acc.png")
 graphGENERO(xTest, yTest, best_k_val[3], "{}-Nearest Neighbors".format(best_k_val[0]),
@@ -49,7 +56,7 @@ graphConfusionMatrix(best_k_val[2], ["Female", "Male"], "Gender",
 
 # Logistic regression
 
-print(" ~ Creating the logistic regression model")
+print("\n\n ~ Creating the logistic regression model")
 regressor = LogisticRegression()
 regressor.fit(xTrain, yTrain.ravel())
 
@@ -60,7 +67,15 @@ print("   → Accuracy:", accuracy)
 cm = confusion_matrix(yTest, yPredicted)
 print("   → Confusion matrix:", cm.tolist())
 
+# Calculate True positive rate and false positive rate to compare models
+# TPR = TP / (TP + FN)
+lr_tpr = cm[0][0] / cm[0].sum()
+# FPR = FP / (FP + TN)
+lr_fpr = cm[1][0] / cm[1].sum()
+
 graphGENERO(xTest, yTest, yPredicted, "Logistic Regression",
             "genero_regression_pred.png")
 graphConfusionMatrix(cm, ["Male", "Female"], "Gender",
                      "GENERO: Logistic Regression", "genero_regression_cm.png")
+graphROC(knn_tpr, knn_fpr, lr_tpr, lr_fpr, 
+        "Genero", "ROC_comparasion.png")
