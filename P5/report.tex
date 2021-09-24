@@ -1,0 +1,118 @@
+\documentclass[sigconf,authorversion,nonacm]{acmart}
+
+\usepackage{FiraMono}
+\usepackage{listings}
+\captionsetup{justification=centering, margin=1cm}
+
+
+\begin{document}
+
+\title{Práctica 5 \\ Árboles de decisión}
+
+\author{Mario Emilio Jiménez Vizcaíno}
+\email{A01173359@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+\author{Jesus Abraham Haros Madrid}
+\email{A01252642@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+
+\begin{abstract}
+  \textbf{TODO}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\textbf{TODO}
+
+\section{Conceptos previos}
+\begin{itemize}
+  \item Programación básica en los lenguajes R y Python
+  \item Conocimiento de las librerías \textit{scikit-learn}, \textit{pandas} y \textit{numpy}
+  \item \textbf{TODO}
+\end{itemize}
+
+
+\section{Metodología}
+
+\subsection{Dataset Iris}
+\textbf{TODO}
+
+\subsection{Dataset Wine}
+\textbf{TODO}
+
+\subsection{Dataset Breast Cancer}
+\textbf{TODO}
+
+\subsection{Modelo de árbol de decisión}
+\textbf{TODO}
+
+El código que ejecutamos para realizar el análisis del dataset se encuentra en el apéndice \ref{appendix:py}.
+
+
+\section{Resultados}
+\textbf{TODO}
+
+\subsection{Dataset Iris}
+\textbf{TODO}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/decision_trees/iris_tree.png}
+  \caption{Modelo de árbol de decisión generado para el dataset Iris}
+\end{figure}
+
+\subsection{Dataset Wine}
+\textbf{TODO}
+
+\subsection{Dataset Breast Cancer}
+\textbf{TODO}
+
+
+\section{Conclusiones y reflexiones}
+\textbf{TODO}
+
+\subsection{Refrexión de Abraham}
+\textbf{TODO}
+
+\subsection{Reflexión de Mario}
+\textbf{TODO}
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\clearpage
+
+\appendix
+
+\lstdefinestyle{customstyle}{
+  basicstyle=\ttfamily,
+  frame=single,
+  numbers=left,
+  numbersep=5pt,
+  showstringspaces=false
+}
+\lstset{style=customstyle}
+
+\begin{figure*}
+ \section{Código para la generación del árbol de decisión}
+  \label{appendix:py}
+  \lstinputlisting[language=Python,lastline=51]{practice5.py}
+\end{figure*}
+
+\begin{figure*}
+  \lstinputlisting[language=Python,firstnumber=52,firstline=52]{practice5.py}
+\end{figure*}
+
+\end{document}
+\endinput
