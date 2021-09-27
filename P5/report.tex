@@ -27,19 +27,24 @@
 
 
 \begin{abstract}
-  \textbf{TODO}
+  En la actualidad, uno de los problemas más importantes para los científicos es la clasificación: el etiquetado de elementos, basándose en las características de estos, seleccionando de un conjunto de clases, una que mejor lo represente. Los árboles de decisión, el objeto de estudio en esta práctica, son clasificadores que predicen las clases de los elementos usando algoritmos simples, lo que facilita su uso e implementación.
 \end{abstract}
 
 \maketitle
 
 \section{Introducción}
-\textbf{TODO}
+Un árbol de decisión clasifica instancias de datos planteando una serie de preguntas sobre las características de estos elementos. Cada pregunta se representa con un nodo, y cada nodo apunta a un nodo hijo, que puede ser un nodo terminal (que presenta el resultado del árbol: una clase o etiqueta), u otro nodo de decisión. Las preguntas forman así una jerarquía de decisiones capturada en una estructura de árbol.
+
+Para clasificar un elemento se sigue el camino desde el nodo superior o raíz, hasta un nodo terminal, dependiendo las características del nodo y las preguntas que cada hoja del camino presenten.
+
+Una ventaja de los árboles de decisión es que muchas veces son más interpretables que otros clasificadores, como las redes neuronales y las máquinas de vectores de soporte\cite{kingsford2008decision}, porque combinan preguntas sencillas sobre los datos de forma comprensible. Por desgracia, pequeños cambios en los datos de entrada pueden provocar a veces grandes cambios en el árbol construido. Los árboles de decisión son lo suficientemente flexibles como para manejar elementos con una mezcla de características de valor real y categóricas, así como elementos con algunas características ausentes.
+
 
 \section{Conceptos previos}
 \begin{itemize}
-  \item Programación básica en los lenguajes R y Python
-  \item Conocimiento de las librerías \textit{scikit-learn}, \textit{pandas} y \textit{numpy}
-  \item \textbf{TODO}
+  \item Programación básica en Python
+  \item Conocimiento de las librerías \textit{scikit-learn}, \textit{matplotlib} y \textit{numpy}
+  \item Conocimientos básicos de estadística
 \end{itemize}
 
 
@@ -55,7 +60,7 @@
 \textbf{TODO}
 
 \subsection{Modelo de árbol de decisión}
-\textbf{TODO}
+Para la generación del modelo del árbol de decisión se utilizó la implementación de la librería \textit{sklearn}, específicamente la clase \\\textit{sklearn.tree.DecisionTreeClassifier}\cite{scikit-learn}, que, aunque provee la función de elegir qué algoritmo utilizar para medir la calidad de las preguntas dentro del árbol, utiliza por defecto el algoritmo de impureza de Gini.
 
 El código que ejecutamos para realizar el análisis del dataset se encuentra en el apéndice \ref{appendix:py}.
 
@@ -85,7 +90,7 @@ El código que ejecutamos para realizar el análisis del dataset se encuentra en
 \textbf{TODO}
 
 \subsection{Reflexión de Mario}
-\textbf{TODO}
+Por mi parte, considero que esta práctica me ayudó a comprender por qué se utilizan los árboles de decisión a pesar de que toman decisiones "codiciosas" y con son muy inestables cuando se seleccionan los datos utilizados para entrenar el árbol. Las características que yo pienso hacen del árbol de decisión un clasificador fácil de aprender y enseñar son que se puede representar gráficamente como lo hicimos en la sección resultados, además de que el proceso de clasificación de una instancia o elemento es una serie de preguntas simples.
 
 
 \bibliographystyle{ACM-Reference-Format}
