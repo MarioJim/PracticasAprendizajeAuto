@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_iris, load_wine, load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
@@ -56,9 +56,24 @@ def save_fig(fig_id, tight_layout=True, fig_extension="png", resolution=300):
 if sys.argv[1] == 'iris':
     iris = load_iris()
     feauture_names = iris.feature_names[-2:]
+    target_names = iris.target_names
     treeFilename = 'iris_tree'
     X = iris.data[:, -2:]
     y = iris.target
+elif sys.argv[1] == 'wine':
+    wine = load_wine()
+    feauture_names = wine.feature_names
+    target_names = wine.target_names
+    treeFilename = 'wine_tree'
+    X = wine.data
+    y = wine.target
+elif sys.argv[1] == 'cancer':
+    cancer = load_breast_cancer()
+    feauture_names = cancer.feature_names
+    target_names = cancer.target_names
+    treeFilename = 'cancer_tree'
+    X = cancer.data
+    y = cancer.target
 
 xTrain, xTest, yTrain, yTest = train_test_split(
     X, y, random_state=0)
@@ -69,7 +84,7 @@ tree_clf.fit(xTrain, yTrain)
 
 # Export an image of the tree
 dot_src = export_graphviz(tree_clf, feature_names=feauture_names,
-                          class_names=iris.target_names, rounded=True,
+                          class_names=target_names, rounded=True,
                           filled=True)
 image_filename = os.path.join(IMAGES_PATH, treeFilename)
 Source(dot_src).render(image_filename, format="png", cleanup=True)
@@ -78,11 +93,13 @@ Source(dot_src).render(image_filename, format="png", cleanup=True)
 accuracy = tree_clf.score(xTest, yTest)
 print("Accuracy:", accuracy)
 
-plt.figure(figsize=(8, 4))
-plot_decision_boundary(tree_clf, xTest, yTest)
-plt.plot([2.45, 2.45], [0, 3], "k-", linewidth=2)
-plt.plot([2.45, 7.5], [1.75, 1.75], "k--", linewidth=2)
-plt.text(1.40, 1.0, "Depth=0", fontsize=15)
-plt.text(3.2, 1.80, "Depth=1", fontsize=13)
-save_fig("decision_tree_decision_boundaries_plot")
-plt.show()
+
+if sys.argv[1] == 'iris':
+    plt.figure(figsize=(8, 4))
+    plot_decision_boundary(tree_clf, xTest, yTest)
+    plt.plot([2.45, 2.45], [0, 3], "k-", linewidth=2)
+    plt.plot([2.45, 7.5], [1.75, 1.75], "k--", linewidth=2)
+    plt.text(1.40, 1.0, "Depth=0", fontsize=15)
+    plt.text(3.2, 1.80, "Depth=1", fontsize=13)
+    save_fig("decision_tree_decision_boundaries_plot")
+    plt.show()
