@@ -67,13 +67,13 @@ elif sys.argv[1] == 'wine':
     treeFilename = 'wine_tree'
     X = wine.data
     y = wine.target
-elif sys.argv[1] == 'cancer':
-    cancer = load_breast_cancer()
-    feauture_names = cancer.feature_names
-    target_names = cancer.target_names
-    treeFilename = 'cancer_tree'
-    X = cancer.data
-    y = cancer.target
+elif sys.argv[1] == 'breast_cancer':
+    breast_cancer = load_breast_cancer()
+    feauture_names = breast_cancer.feature_names
+    target_names = breast_cancer.target_names
+    treeFilename = 'breast_cancer_tree'
+    X = breast_cancer.data
+    y = breast_cancer.target
 
 xTrain, xTest, yTrain, yTest = train_test_split(
     X, y, random_state=0)
