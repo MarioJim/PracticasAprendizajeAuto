@@ -49,15 +49,33 @@ Una ventaja de los árboles de decisión es que muchas veces son más interpreta
 
 
 \section{Metodología}
+Esta fue la primera practica donde la metodología para llevarla a cabo fue muy clara en la descripción de la actividad, por lo que se siguieron los pasos descritos en el documento de la practica 5.
+
+Se comenzó por instalar graphviz en las computadoras, seguido de corroborar que se tenía instalado numpy, matplotlib y scikitlearn.
+Una vez hecho esto se creó el archivo llamado practice5.py y se configuró para que al entrenar el modelo hubieran figuras esteticamente vistosas así como también establecer el directorio donde se guardarían.
+
+Se comenzó por entrenar un árbol de decisión para el dataset Iris incluido en la librería de scikit learn, una vez entrenado se dibujó utilizando graphviz.
+Después, se probó el árbol de decisión utilizando los conjuntos de entrenamiento y prueba, se calculó la precisión del modelo.
+
+Para poder hacer el script genérico se optó por utilizar la librería sys y leer como argumento el dataset con el que se quiere trabajar.
 
 \subsection{Dataset Iris}
-\textbf{TODO}
+Se utilizó el dataset Iris incluido en la librería de scikit learn, para esta practica se tomaron solo los dos últimos features (petal length y petal width) de los datos ya que el codigo proporcionado para graficar los resultados se establecían solo esas dos columnas. 
+Una vez seleccionadas las columnas se entrena el modelo y se grafica el árbol de decisión correspondiente.
+Por último se calcula su precisión y se gráfica la predicción del modelo para poder visualizar las particiones generadas por cada split.
+
 
 \subsection{Dataset Wine}
-\textbf{TODO}
+Muy similar a lo que se hizo con el dataset iris, se importó este dataset de la librería scikitlearn pero en este caso tomamos todos los features.
+Se entrenó el modelo y se graficó el árbol de decisión para este dataset.
+Por ultimo se calculo su precisión.
+
 
 \subsection{Dataset Breast Cancer}
-\textbf{TODO}
+Al igual que lo que se hizo con el dataset iris, se importó este dataset de la librería scikitlearn pero en este caso tomamos todos los features.
+Se entrenó el modelo y se graficó el árbol de decisión para este dataset.
+Por ultimo se calculo su precisión.
+
 
 \subsection{Modelo de árbol de decisión}
 Para la generación del modelo del árbol de decisión se utilizó la implementación de la librería \textit{sklearn}, específicamente la clase \\\textit{sklearn.tree.DecisionTreeClassifier}\cite{scikit-learn}, que, aunque provee la función de elegir qué algoritmo utilizar para medir la calidad de las preguntas dentro del árbol, utiliza por defecto el algoritmo de impureza de Gini.
@@ -66,28 +84,56 @@ El código que ejecutamos para realizar el análisis del dataset se encuentra en
 
 
 \section{Resultados}
-\textbf{TODO}
+Los resultados obtenidos en está practica fueron muy similares para los tres datasets, gracias a las librerías mencionadas anteriormente se pudo generar una imagen con el árbol de decisión entrenado a partir de los conjuntos de entrenamiento y prueba de cada dataset.
+A continuación se presentan los resultados para cada uno:
+
 
 \subsection{Dataset Iris}
-\textbf{TODO}
+Se aprecia como el dato con mayor ganancia es petal width y en base a eso se empieza a determinar la clasificación.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/decision_trees/iris_tree.png}
   \caption{Modelo de árbol de decisión generado para el dataset Iris}
 \end{figure}
 
+Al graficar los resultados del modelo y ver donde se clasifican las instancias se puede ver que es muy preciso y que muy pocas instancias quedan fuera de la clase a la que pertenecen.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/decision_trees/decision_tree_decision_boundaries_plot.png}
+  \caption{Resultados del modelo del árbol de decisión generado para el dataset Iris}
+\end{figure}
+
+
 \subsection{Dataset Wine}
-\textbf{TODO}
+Como en este dataset no se quitaron features el árbol de decisión generado se nota más detallado, siendo color\_intensity el atributo con mayor ganancia.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/decision_trees/wine_tree.png}
+  \caption{Modelo de árbol de decisión generado para el dataset wine}
+\end{figure}
 
 \subsection{Dataset Breast Cancer}
-\textbf{TODO}
+Este fue el dataset con mayor número de atributos, seguramente se puede generar un árbol de decisión más compacto que llegue a resultados similares pero quitarle feautures hubiera sido completamente arbitrario, por lo que el resultado fue un árbol muy grande, siendo mean concave points el atributo con mayor ganancia.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/decision_trees/cancer_tree.png}
+  \caption{Modelo de árbol de decisión generado para el dataset breast\_cancer}
+\end{figure}
 
 
 \section{Conclusiones y reflexiones}
-\textbf{TODO}
+Los arboles de decisión son herramientas muy útiles para poder clasificar instancias y a la vez poder visualizar que está pasando dentro del modelo. Claro que entre más features se tengan más difícil será visualizar el árbol y más extenso el trabajo de graficar resultados de prueba. La seria de preguntas de un árbol de decisión está ordenada con los atributos que tienen mayor ganancia donde cada nodo apunta a un nodo hijo con una nueva pregunta o un nodo terminal.
+Al utilizar el dataset Iris fue muy interesante ver como el modelo entrenado si clasificaba correctamente la mayoría de los datos y poder observar el proceso que sigue para clasificarlos.
 
 \subsection{Refrexión de Abraham}
-\textbf{TODO}
+Esta practica fue sencilla de elaborar y refuerza lo que ya se había trabajado a mano dentro del examen parcial, me gustó poder visualizar el árbol de decisión del modelo entrenado y también poder comprobar si se clasificaban correctamente las instancias utilizando la segunda función para graficar.
+Me parece una técnica muy útil cuando se trata de clasificar datos ya que se puede mostrar el proceso a los clientes que lo necesiten.
+Por último, me hubiera gustado hacer las gráficas de comprobación para cada dataset pero se ve largo y hardcodeado de elaborar por lo que investigaré si existe alguna librería para hacerlo.
+
 
 \subsection{Reflexión de Mario}
 Por mi parte, considero que esta práctica me ayudó a comprender por qué se utilizan los árboles de decisión a pesar de que toman decisiones "codiciosas" y con son muy inestables cuando se seleccionan los datos utilizados para entrenar el árbol. Las características que yo pienso hacen del árbol de decisión un clasificador fácil de aprender y enseñar son que se puede representar gráficamente como lo hicimos en la sección resultados, además de que el proceso de clasificación de una instancia o elemento es una serie de preguntas simples.
