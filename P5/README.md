@@ -12,19 +12,20 @@ $ python practice5.py breast_cancer
 
 ```sh
 $ python practice5.py iris
-TODO
+Accuracy: 0.9736842105263158
+Saving figure decision_tree_decision_boundaries_plot
 ```
 
 ### Output de la ejecución del comando `python practice5.py wine`
 
 ```sh
 $ python practice5.py wine
-TODO
+Accuracy: 0.9333333333333333
 ```
 
 ### Output de la ejecución del comando `python practice5.py breast_cancer`
 
 ```sh
 $ python practice5.py breast_cancer
-TODO
+Accuracy: 0.958041958041958
 ```
