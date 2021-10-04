@@ -1,0 +1,178 @@
+\documentclass[sigconf,authorversion,nonacm]{acmart}
+
+\usepackage{FiraMono}
+\usepackage{listings}
+\captionsetup{justification=centering, margin=1cm}
+
+
+\begin{document}
+
+\title{Práctica 7 \\ Máquinas de soporte vectorial}
+
+\author{Mario Emilio Jiménez Vizcaíno}
+\email{A01173359@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+\author{Jesus Abraham Haros Madrid}
+\email{A01252642@itesm.mx}
+\affiliation{%
+  \institution{Tecnológico de Monterrey \\ Ingeniería en Tecnologías Computacionales}
+  \city{Monterrey, N.L.}
+  \country{México}
+}
+
+
+\begin{abstract}
+  \textbf{TODO}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\textbf{TODO}
+
+
+\section{Conceptos previos}
+\begin{itemize}
+  \item Programación básica en Python
+  \item Conocimiento de las librerías \textit{scikit-learn}, \textit{matplotlib} y \textit{numpy}
+  \item Conocimientos básicos de estadística
+\end{itemize}
+
+
+\section{Metodología}
+Ésta práctica, al igual que la práctica pasada, implementar los modelos fue una tarea fácil, ya que la metodología para llevarla a cabo fue muy clara en la descripción de la actividad. Es por eso que nos guiamos de los pasos descritos en el documento de la práctica 7 para poder implementar los scripts de Python.
+
+Para demostrar la eficacia y los resultados de las máquinas de soporte vectorial las comparamos contra tres modelos más:
+\begin{itemize}
+  \item Un modelo de regresión logística
+  \item Un modelo de k-vecinos más cercanos: durante nuestras pruebas encontramos el valor óptimo para k como 1, con una máxima precisión de 0.9889. El código de nuestra prueba puede ser encontrado en el apéndice \ref{appendix:knnpy}
+  \item Un modelo de Bayes ingenuo
+\end{itemize}
+
+Para poder hacer el script fácil de usar con los diferentes modelos de clasificación se optó por leer como argumento de ejecución de programa el modelo con el que se quiere trabajar.
+
+
+\subsection{Dataset Digits}
+\textbf{TODO}
+
+
+\subsection{Máquinas de soporte vectorial}
+\textbf{TODO}
+
+El código que ejecutamos para realizar el análisis del dataset se encuentra en el apéndice \ref{appendix:py}.
+
+
+\section{Resultados}
+\textbf{TODO}
+
+\subsection{Precisión de los modelos}
+\begin{table}[H]
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Modelo}} & \textbf{Precisión} \\ \hline
+MSV con kernel lineal     & 0.9777    \\ \hline
+MSV con kernel polinomial & 0.9889    \\ \hline
+MSV con kernel RBF        & 0.9917    \\ \hline
+MSV con kernel sigmoide   & 0.9139    \\ \hline
+Regresión logística       & 0.9472    \\ \hline
+k-Vecinos más cercanos    & 0.9889     \\ \hline
+Bayes ingenuo             & 0.8444    \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Matriz de confusión de los modelos}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{linear_cm.png}
+  \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel lineal}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{poly_cm.png}
+  \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel polinomial}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{rbf_cm.png}
+  \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel RBF}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{sigmoid_cm.png}
+  \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel sigmoide}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{logistic_cm.png}
+  \caption{Matriz de confusión del modelo de regresión logística}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{knn_cm.png}
+  \caption{Matriz de confusión del modelo de k vecinos más cercanos}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{bayes_cm.png}
+  \caption{Matriz de confusión del modelo bayesiano ingenuo}
+\end{figure}
+
+\subsection{Espacio ROC de los modelos}
+\textbf{TODO}
+
+
+\section{Conclusiones y reflexiones}
+\textbf{TODO}
+
+\subsection{Refrexión de Abraham}
+\textbf{TODO}
+
+\subsection{Reflexión de Mario}
+\textbf{TODO}
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\clearpage
+
+\appendix
+
+\lstdefinestyle{customstyle}{
+  basicstyle=\ttfamily,
+  frame=single,
+  numbers=left,
+  numbersep=5pt,
+  showstringspaces=false
+}
+\lstset{style=customstyle}
+
+\begin{figure*}
+  \section{Código para la comparación de modelos de clasificación}
+  \label{appendix:py}
+  \lstinputlisting[language=Python,lastline=52]{practice7.py}
+\end{figure*}
+
+\begin{figure*}
+  \lstinputlisting[language=Python,firstnumber=54,firstline=54]{practice7.py}
+\end{figure*}
+
+\begin{figure*}
+  \section{Código para la comparación de k para el modelo de k-vecinos más cercanos}
+  \label{appendix:knnpy}
+  \lstinputlisting[language=Python]{knn-search.py}
+\end{figure*}
+
+\end{document}
+\endinput
