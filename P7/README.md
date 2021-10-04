@@ -12,6 +12,12 @@ $ python practice7.py knn
 $ python practice7.py bayes
 ```
 
+Para Graficar el espacio ROC de deberá de utilizar el siguiente comando:
+```
+sh
+$ python ROC_space.py
+```
+
 ### Output de la ejecución del comando `python practice7.py linear`
 
 ```sh
