@@ -44,7 +44,7 @@ def plotROCs(ROCs):
     lw = 2
     plt.figure(figsize=(12, 7), dpi=100)
 
-    colors = cycle(['aqua', 'darkorange', 'cornflowerblue', 'black', 'gray', 'rosybrown', 'orange', 'darkviolet', 'crimson', 'slategray'])
+    colors = cycle(['black', 'darkorange', 'cornflowerblue', 'olive', 'gray', 'rosybrown', 'orange', 'darkviolet', 'crimson', 'slategray'])
     for i, color in zip(range(len(ROCs)), colors):
         plt.plot(ROCs[i][1], ROCs[i][2], color=color, lw=lw,
             label=ROCs[i][0] + ' (area = {0:0.2f})'
