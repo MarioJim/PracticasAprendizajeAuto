@@ -12,10 +12,29 @@ $ python practice7.py knn
 $ python practice7.py bayes
 ```
 
-Para Graficar el espacio ROC de deberá de utilizar el siguiente comando:
-```
-sh
+Para graficar el espacio ROC de deberá de utilizar el siguiente comando:
+
+```sh
 $ python ROC_space.py
+```
+
+Para ejecutar el script de búsqueda de vecinos más cercanos con diferente número de vecinos debe utilizar el siguiente comando:
+
+```sh
+$ python knn-search.py
+Accuracy using  1 neighbors: 0.9889
+Accuracy using  2 neighbors: 0.9806
+Accuracy using  3 neighbors: 0.9833
+Accuracy using  4 neighbors: 0.9750
+Accuracy using  5 neighbors: 0.9750
+Accuracy using  7 neighbors: 0.9750
+Accuracy using 10 neighbors: 0.9722
+Accuracy using 15 neighbors: 0.9694
+Accuracy using 20 neighbors: 0.9639
+Accuracy using 25 neighbors: 0.9611
+Accuracy using 30 neighbors: 0.9583
+Accuracy using 40 neighbors: 0.9556
+Accuracy using 50 neighbors: 0.9444
 ```
 
 ### Output de la ejecución del comando `python practice7.py linear`

@@ -27,14 +27,17 @@
 
 
 \begin{abstract}
-  \textbf{TODO}
+  La clasificación es una de las tareas más importantes para una diversidad de aplicaciones, como el reconocimiento óptico de caracteres, la clasificación de imágenes, e incluso problemas biológicos y químicos como las expresiones de genes, o predicciones de la estructura de proteínas\cite{durgesh2010data}. Esta práctica tiene como objetivo comparar un método de aprendizaje automático relativamente nuevo: las máquinas de soporte vectorial, utilizando un dataset de imágenes de dígitos.
 \end{abstract}
 
 \maketitle
 
 \section{Introducción}
-\textbf{TODO}
+Las máquinas de soporte vectorial son un conjunto de modelos de aprendizaje automático usados principalmente con el objetivo de clasificar un conjunto de datos, aunque también pueden ser usados para regresión o para detectar valores atípicos en el dataset.
 
+La principal ventaja de estos modelos es que son muy efectivos en datasets con muchas dimensiones, incluso cuando se tiene un mayor número de dimensiones que de instancias\cite{scikit-learn}.
+
+Este modelo de aprendizaje automático fue introducido a principios de los años 90 por Vapnik\cite{cortes1995support} y ganó popularidad rápidamente debido a su desempeño prometedor y a que puede trabajar con muchas dimensiones y pocas muestras.
 
 \section{Conceptos previos}
 \begin{itemize}
@@ -58,19 +61,23 @@ Para poder hacer el script fácil de usar con los diferentes modelos de clasific
 
 
 \subsection{Dataset Digits}
-\textbf{TODO}
+Este dataset está compuesto por 1797 imágenes de 8x8 pixeles, cada uno con un color monocromático en el rango entre el 0 y el 16. Cada una de las imágenes representa un dígito escrito a mano, pasado por un preprocesamiento de reconocimiento de caracteres para intentar eliminar la información considerada como ruido.
+
+Este dataset fue originalmente publicado por el departamento de ingeniería informática de la Universidad Bogazici en Turquía\cite{Dua:2019}, pero puede ser encontrado en el repositorio de Machine Learning de la Universidad de California en Irvine.
 
 
 \subsection{Máquinas de soporte vectorial}
-\textbf{TODO}
+Para la implementación de la comparación de modelos de clasificación utilizamos la librería \textit{scikit-learn}, que además de implementar las máquinas de soporte vectorial con la opción de cambiar la función de kernel, incluye también implementaciones para los demás modelos utilizados durante esta práctica.
+
+Específicamente, para el desarrollo de esta práctica, utilizamos la clase \textit{sklearn.svm.SVC}, que acepta un parámetro \textit{kernel}, el cual cambiamos entre los valores "linear", "poly", "rbf" y "sigmoid" para así contrastar el desempeño de cada una de estas opciones.
 
 El código que ejecutamos para realizar el análisis del dataset se encuentra en el apéndice \ref{appendix:py}.
 
 
 \section{Resultados}
-Una vez entrenados y probados los diferentes modelos utilizados en esta práctica fue muy interesante observar como la mayoría tienen un excelente desempeño para clasificar instancias.
+Una vez entrenados y probados los diferentes modelos utilizados en esta práctica fue muy interesante observar cómo la mayoría tienen un excelente desempeño para clasificar instancias.
 
-Comenzaremos por mostrar los resultados obtenidos utilizando las maquinas de soporte vectorial, se utilizaron cuatro kernels distintos y se logran apreciar las diferencias entre cada uno. Después se mostrarán los resultados obtenidos con métodos de clasificación utilizados en prácticas anteriores y por último se comprarán todos estos modelos para mostrar sus diferencias.
+Comenzaremos por mostrar los resultados obtenidos utilizando las máquinas de soporte vectorial: se utilizaron cuatro kernels distintos y se logran apreciar las diferencias entre cada uno. Después se mostrarán los resultados obtenidos con métodos de clasificación utilizados en prácticas anteriores y por último se compararán todos estos modelos para mostrar sus diferencias.
 
 \subsection{Precisión de los modelos}
 \begin{table}[H]
@@ -90,80 +97,93 @@ Bayes ingenuo             & 0.8444    \\ \hline
 \subsection{Matriz de confusión de los modelos}
 \subsubsection{SVM con kernel lineal}
 Al utilizar el kernel lineal se puede ver como la mayoría de las instancias se clasifican correctamente, algunas quedan fuera, como el número 1 con dos clasificaciones falsas, pero en general el desempeño de la SVM con kernel lineal nos permite clasificar las instancias satisfactoriamente, en este caso se clasificó para múltiples clases (10) y aún así logra hacerlo bien.
-La precisión obtenida del modelo fue de 0.9777
+
+La precisión obtenida del modelo fue de 0.9777.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{linear_cm.png}
+  \includegraphics[width=210pt]{linear_cm.png}
   \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel lineal}
 \end{figure}
 
 \subsubsection{SVM con kernel polinomial}
-Al utilizar la maquina de soporte vectorial con kernel polinomial se observa una mejoría en el desempeño del modelo para clasificar, aunque el lineal ya era bueno este tiene aún mejores resultados. La matriz de confusión obtenida fue muy similar a la anterior, se observa que casi todos quedan clasificados correctamente y que las instancias clasificadas erróneamente son muy pocas (casi nulas).
-La precisión obtenida del modelo fue de 0.9888
+Al utilizar la máquina de soporte vectorial con kernel polinomial se observa una mejoría en el desempeño del modelo para clasificar; aunque el lineal ya era bueno este tiene aún mejores resultados. La matriz de confusión obtenida fue muy similar a la anterior, se observa que casi todos quedan clasificados correctamente y que las instancias clasificadas erróneamente son muy pocas (casi nulas).
+
+La precisión obtenida del modelo fue de 0.9888.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{poly_cm.png}
+  \includegraphics[width=210pt]{poly_cm.png}
   \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel polinomial}
 \end{figure}
 
 \subsubsection{SVM con kernel RBF}
-Cuando se utilizó como kernel la función de base radial (RBF) se notó una mejoría en la precisión del modelo para clasificar, aunque dichas mejorías no sean tan significativas (diferencias de 1%-2%) nos permite observar como utilizando las mismas maquinas de soporte vectorial con diferente kernel nos permite hacer un modelo mejor entrenado.
-La precisión obtenida del modelo fue de 0.9916
+Cuando se utilizó como kernel la función de base radial (RBF) se notó una mejoría en la precisión del modelo para clasificar, aunque dichas mejorías no sean tan significativas (diferencias de 1\%-2\%) nos permite observar cómo utilizando las mismas máquinas de soporte vectorial con diferente kernel nos permite hacer un modelo mejor entrenado.
+
+La precisión obtenida del modelo fue de 0.9916.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{rbf_cm.png}
+  \includegraphics[width=210pt]{rbf_cm.png}
   \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel RBF}
 \end{figure}
 
 \subsubsection{SVM con kernel Sigmoide}
-Para este punto los resultados de las maquinas de soporte vectorial erán muy prometedores, se pensaba que cada que se cambiaba el kernel habría mejoría, pero no fue el caso cuando se utilizó como kernel la sigmoide, la matriz de confusión nos muestra más errores al momento de clasificar las instancias aunque si clasifica la mayoría bien. Lo anterior también se ve reflejado en la precisión del modelo la cual fue más baja que los tres anteriores, seguramente el dataset y número de clases utilizadas no favoreció el desempeño de la SVM con este kernel.
-La precisión obtenida del modelo fue de 0.9138
+Para este punto los resultados de las máquinas de soporte vectorial eran muy prometedores, se pensaba que cada que se cambiaba el kernel habría mejoría, pero no fue el caso cuando se utilizó como kernel la sigmoide, la matriz de confusión nos muestra más errores al momento de clasificar las instancias aunque si clasifica la mayoría bien. Lo anterior también se ve reflejado en la precisión del modelo la cual fue más baja que los tres anteriores. Seguramente el dataset y número de clases utilizadas no favoreció el desempeño de la SVM con este kernel.
+
+La precisión obtenida del modelo fue de 0.9138.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{sigmoid_cm.png}
+  \includegraphics[width=210pt]{sigmoid_cm.png}
   \caption{Matriz de confusión del modelo de máquina de soporte vectorial usando un kernel sigmoide}
 \end{figure}
 
 \subsubsection{Regresión logística}
 Después de utilizar SMVs probando cuatro kernels distintos llega el momento de probar los métodos de clasificación ya utilizados anteriormente, cabe aclarar que no se habían utilizado para predecir tantas clases, así que se comenzó por probar el modelo de regresión logística, los resultados obtenidos fueron muy buenos pero no tan buenos como algunas SVMs, la matriz de confusión muestra algunos errores y esto a su vez se refleja en la precisión obtenida por el modelo, aunque sigue sienda una muy buena precisión y que se probó que la regresión logística funciona para clasificar múltiples clases no quita el hecho de que las SVMs tienen un mejor desempeño (para este caso utilizando este dataset).
-La precisión obtenida del modelo fue de 0.9472
+
+La precisión obtenida del modelo fue de 0.9472.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{logistic_cm.png}
+  \includegraphics[width=210pt]{logistic_cm.png}
   \caption{Matriz de confusión del modelo de regresión logística}
 \end{figure}
 
-\subsubsection{Knn}
-Al utilizar como modelo de clasificación Knn el resultado fue que es uno de los mejores para clasificación múltiple, su desempeño fue muy similar a la mejor SVM (polinomial) y la matriz de confusión lo muestra, se ven muy pocos errores y que casi todos se encuentran clasificados correctamente.
-La precisión obtenida del modelo fue de 0.9888
+\subsubsection{k-NN}
+Al utilizar como modelo de clasificación k-NN el resultado fue que es uno de los mejores para clasificación múltiple, su desempeño fue muy similar a la mejor SVM (polinomial) y la matriz de confusión lo muestra, se ven muy pocos errores y que casi todos se encuentran clasificados correctamente.
+
+La precisión obtenida del modelo fue de 0.9888.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{knn_cm.png}
+  \includegraphics[width=210pt]{knn_cm.png}
   \caption{Matriz de confusión del modelo de k vecinos más cercanos}
 \end{figure}
 
 \subsubsection{Bayesiano ingenuo}
-Por último se compara el modelo bayesiano ingenuo el cual no mostró una mejoría respecto a los modelos mencionados anteriormente, de hecho ha sido el modelo con peor desempeño, puede ser por que fueron muchas clases a clasificar.
-La precisión obtenida del modelo fue de 0.8444
+Por último se compara el modelo bayesiano ingenuo el cual no mostró una mejoría respecto a los modelos mencionados anteriormente, de hecho ha sido el modelo con peor desempeño, puede ser porque fueron muchas clases a clasificar.
+
+La precisión obtenida del modelo fue de 0.8444.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{bayes_cm.png}
+  \includegraphics[width=210pt]{bayes_cm.png}
   \caption{Matriz de confusión del modelo bayesiano ingenuo}
 \end{figure}
 
 \subsection{Espacio ROC de los modelos}
-Para todos los clasificadores implementados en esta practica se observaron matrices de confusión muy similares, todos clasificaron la mayoría de las instancias correctamente lo cual es bueno, pero debido a que eran muchas clases la matriz de confusión se vuelve difícil de leer para poder comparar los clasificadores, en este caso una buena métrica podría ser compararlos en base a su precisión, pero si queremos tomar una vista más general del modelo y tomar en cuenta más que su precisión deberemos de utilizar el espacio ROC para compararlos.
+Para todos los clasificadores implementados en esta práctica se observaron matrices de confusión muy similares, todos clasificaron la mayoría de las instancias correctamente lo cual es bueno, pero debido a que eran muchas clases la matriz de confusión se vuelve difícil de leer para poder comparar los clasificadores. En este caso una buena métrica podría ser compararlos en base a su precisión, pero si queremos tomar una vista más general del modelo y tomar en cuenta más que su precisión deberemos de utilizar el espacio ROC para compararlos.
 
 El espacio ROC nos sirve para poder identificar las ventajas y desventajas de cada clasificador graficando el promedio de los falsos positivos y verdaderos positivos en un plano. Lo ideal para un modelo es que este su TPR esté lo más cercano al 1 y su FPR lo más cercano al 0, esa sería la precisión ideal de predicción. Se hará una pequeña modificación para poder emplearlos con múltiples clases y se tomará el macro para graficar el espacio ROC.
 
-El resultado final fue que la mayoría de las SVMs tienen un excelente desempeño y son ideales para este dataset, a excepción de la SVM con kernel sigmoide la cual fue la más baja de todas, el segundo peor modelo fue bayes y despues todas las SVMs junto con Knn y regresión logística presentan los mejores resultados (entre 0.99 y 1), recordando que el mayor desempeño es de 1.
+El resultado final fue que la mayoría de las SVMs tienen un excelente desempeño y son ideales para este dataset, a excepción de la SVM con kernel sigmoide la cual fue la más baja de todas, el segundo peor modelo fue bayes y después todas las SVMs junto con k-NN y regresión logística presentan los mejores resultados (entre 0.99 y 1), recordando que el mayor desempeño es de 1.
+
+Para comparar los modelos en el espacio ROC utilizamos el código expuesto en el apéndice \ref{appendix:rocpy}.
+
+\vfill
+\pagebreak
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{ROC_curve.png}
@@ -171,24 +191,26 @@ El resultado final fue que la mayoría de las SVMs tienen un excelente desempeñ
 \end{figure}
 
 \section{Conclusiones y reflexiones}
-Esta practica fue todo un reto ya que no se habían utilizado clasificadores para múltiples clases, por lo cual no se sabía como iban a ser los resultados arrojados por los modelos, al implementarlos y observar las matrices de confusión obtenidas se aprecia que la mayoría de los clasificadores son muy buenos y tienen pocos errores (unos mas que otros), también se observa que los métodos de clasificación utilizados en practicas anteriores funcionaron óptimamente para múltiples clases.
+Esta práctica fue todo un reto ya que no se habían utilizado clasificadores para múltiples clases, por lo cual no se sabía como iban a ser los resultados arrojados por los modelos, al implementarlos y observar las matrices de confusión obtenidas se aprecia que la mayoría de los clasificadores son muy buenos y tienen pocos errores (unos más que otros), también se observa que los métodos de clasificación utilizados en prácticas anteriores funcionaron óptimamente para múltiples clases.
 
-Las maquinas de soporte vectorial muestran desempeño excelente para clasificar, pero al iterar sobre los diferentes kernels nos dimos cuenta que unos tienen mejor desempeño que otros, aunque depende del dataset y del caso de uso, se debe de tener en cuenta que la selección del kernel impactará el desempeño del modelo por lo que se recomienda hacer algo muy parecido con Knn para encontrar la K ideal, iterar sobre los kernels para ver cual tiene mejor precisión.
+Las máquinas de soporte vectorial muestran desempeño excelente para clasificar, pero al iterar sobre los diferentes kernels nos dimos cuenta que unos tienen mejor desempeño que otros, aunque esto depende del dataset y del caso de uso, se debe de tener en cuenta que la selección del kernel impactará el desempeño del modelo por lo que se recomienda hacer algo muy parecido con k-NN para encontrar la k ideal, iterar sobre los kernels para ver cuál tiene mejor precisión.
 
-En general todos los modelos tuvieron muy buen desempeño, fue muy interesante ver como la precisión cambia entre cada uno pero oscilan en rangos muy similares.
+En general todos los modelos tuvieron muy buen desempeño, fue muy interesante ver cómo la precisión cambia entre cada uno pero oscilan en rangos muy similares.
 
-Por último al observar el espacio ROC nos damos cuenta que el modelo ideal está entre algunas SVMs y regresión logística, pero fue interesante ver como Naive bayes tiene la peor precisión mientras que el modelo con el peor desempeño en el espacio ROC es la SVM con sigmoide, esto nos muestra que no solo debemos de seleccionar un modelo por su precisión si no que es valioso ver como se comporta en el espacio ROC para tomar decisiones.
+Por último al observar el espacio ROC nos damos cuenta que el modelo ideal está entre algunas SVMs y regresión logística, pero fue interesante ver como Naive bayes tiene la peor precisión mientras que el modelo con el peor desempeño en el espacio ROC es la SVM con sigmoide, esto nos muestra que no sólo debemos de seleccionar un modelo por su precisión si no que es valioso ver como se comporta en el espacio ROC para tomar decisiones.
 
 \subsection{Refrexión de Abraham}
-Esta fue una de las prácticas más interesantes hasta el momento ya que la complejidad del codigo no fue muy alta lo que nos permitió enfocarnos en el analisis de resultados y comparación del desempeño de los clasificadores, me gustó ver como se comportan al clasificar múltiples clases lo cual me será útil para mi proyecto, y también me pareció muy valioso saber que se tienen que probar diferentes kernels para ver cual es el más óptimo para una SVM.
+Esta fue una de las prácticas más interesantes hasta el momento ya que la complejidad del código no fue muy alta lo que nos permitió enfocarnos en el analisis de resultados y comparación del desempeño de los clasificadores, me gustó ver cómo se comportan al clasificar múltiples clases lo cual me será útil para mi proyecto, y también me pareció muy valioso saber que se tienen que probar diferentes kernels para ver cuál es el más óptimo para una SVM.
 
-También ver que el espacio ROC nos muestra una mejor vista de los modelos me será de gran utilidad para no guiarme solo por su precisión.
+También ver que el espacio ROC nos muestra una mejor vista de los modelos me será de gran utilidad para no guiarme sólo por su precisión.
 
 Este trabajo me ayudó a comprender los conceptos de aprendizaje automático vistos en clase y a desarrollar mi capacidad de analizar y comparar.
 
 
 \subsection{Reflexión de Mario}
-\textbf{TODO}
+Considero que en esta práctica fue muy enriquecedor poder comparar directamente múltiples modelos de aprendizaje automático para visualizar cómo se comportan, qué tan fácil es usarlos y principalmente qué tan precisos son para realizar su objetivo común, que en este caso fue clasificar un dataset con muchas dimensiones (cada imagen se componía de 64 enteros).
+
+Por otra parte, pienso que el desarrollo de este reporte fue mucho más claro y directo gracias a la experiencia que hemos acumulado durante el semestre utilizando \textit{sklearn}, que definitivamente es una herramienta con muchísimas más opciones, algoritmos y modelos que nunca se me hubieran ocurrido pero espero aprender durante lo que falta del semestre.
 
 
 \bibliographystyle{ACM-Reference-Format}
@@ -225,8 +247,12 @@ Este trabajo me ayudó a comprender los conceptos de aprendizaje automático vis
 
 \begin{figure*}
   \section{Código para la comparación y graficación del espacio ROC}
-  \label{appendix:knnpy}
-  \lstinputlisting[language=Python]{ROC_space.py}
+  \label{appendix:rocpy}
+  \lstinputlisting[language=Python,lastline=57]{ROC_space.py}
+\end{figure*}
+
+\begin{figure*}
+  \lstinputlisting[language=Python,firstnumber=60,firstline=60]{ROC_space.py}
 \end{figure*}
 
 \end{document}
